@@ -3,13 +3,13 @@
   <a class="navbar-brand">SMK BPI Bandung</a>
   <div class="btn-group btn-group-option">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      <img class="img-circle" width="15%" src="<?= base_url('assets/img/') . $user['gambar']; ?>">
-      <span class="user-name"><?= $user['nama_petugas']; ?></span>
+      <img class="img-circle" width="15%" src="<?= base_url()?>assets/img/<?= $this->session->gambar; ?>">
+      <span class="user-name"><?= $this->session->nama; ?></span>
     </button>
     <ul class="dropdown-menu pull-right">
-      <li><a href="<?= base_url('index.php/user') ?>"><i class="fa fa-fw fa-user"></i>Profile Saya</a></li>
+      <li><a href="<?= base_url('') ?>"><i class="fa fa-fw fa-user"></i>Profile Saya</a></li>
       <li class="divider"></li>
-      <li><a href="<?= base_url('index.php/user/logout'); ?>"><i class="fa fa-fw fa-chevron-circle-left"></i>Sign Out</a></li>
+      <li><a href="<?= base_url('main/signout_petugas'); ?>"><i class="fa fa-fw fa-chevron-circle-left"></i>Sign Out</a></li>
     </ul>
   </div>
 </nav>

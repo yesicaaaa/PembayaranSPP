@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+body {
+	background-image: url('../img/bgSignin.jpg');
+	background-size: cover;
+	font-family: 'Roboto', sans-serif;
+}
+
+.container {
+	background-color: rgba(19, 19, 62, .9);
+	margin-top: 14%;
+	width: 28%;
+	padding-bottom: 30px;
+}
+
+h2 {
+	text-align: center;
+	padding: 20px 0 20px 0;
+	color: #007580;
+}
+
+.btn {
+	background-color: #007580;
+	color: #ffffff;
+	width: 100%;
+	margin-top: 15px;
+	border-radius: 0px;
+}
+
+.btn:hover {
+	background-color: #00656e;
+	color: #ffffff;
+}

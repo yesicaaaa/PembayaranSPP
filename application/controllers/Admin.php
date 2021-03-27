@@ -1,12 +1,14 @@
-<?php  
-defined ('BASEPATH') or exit ('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Admin extends CI_Controller{
+class Admin extends CI_Controller
+{
   public function __construct()
   {
     parent::__construct();
     $this->load->model('admin_model', 'am');
   }
+  
   public function index()
   {
     $data  = [
@@ -16,10 +18,10 @@ class Admin extends CI_Controller{
       'js'      => ''
     ];
 
-    if($this->input->post('submit')){
+    if ($this->input->post('submit')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
-    }else{
+    } else {
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
@@ -39,7 +41,7 @@ class Admin extends CI_Controller{
     $start = ($data['start'] > 0) ? $data['start'] : 0;
     $data['petugas'] = $this->am->getPetugas($config['per_page'], $start, $data['keyword']);
 
-    if(!$this->input->post('submit')){
+    if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required');
       $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
       $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required');
@@ -49,7 +51,7 @@ class Admin extends CI_Controller{
       $this->form_validation->set_rules('password2', 'Confirm Password', 'required|matches[password1]');
     }
 
-    if($this->form_validation->run() == false){
+    if ($this->form_validation->run() == false) {
       $this->load->view('templates_admin/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-petugas', $data);
@@ -68,7 +70,7 @@ class Admin extends CI_Controller{
     $this->session->set_flashdata('message', '<div class="alert alert-success" 
           role="alert">Petugas berhasil dihapus!</div>');
     redirect('admin');
-  } 
+  }
 
   public function getPetugasRow()
   {

@@ -20,19 +20,19 @@
   <div class="divider"></div>
   <div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
+      <li><a href="<?= base_url('admin') ;?>"><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Data Siswa</span></a></li>
+      <li><a href="<?= base_url('admin_data_siswa'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Siswa</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Data Kelas</span></a></li>
+      <li><a href="<?= base_url('admin_data_kelas'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Kelas</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Data SPP</span></a></li>
+      <li><a href="<?= base_url('admin_data_spp'); ?>"><i class="fa fa-fw fa-users"></i><span>Data SPP</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">

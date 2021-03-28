@@ -12,7 +12,7 @@ class Admin_data_siswa extends CI_Controller
   public function index()
   {
     $data = [
-      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')]),
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'kelas' => $this->db->get('kelas')->result_array(),
       'spp'   => $this->db->get('spp')->result_array(),
       'title' => 'Data Siswa | SMK BPI',
@@ -84,7 +84,7 @@ class Admin_data_siswa extends CI_Controller
   public function editDataSiswa()
   {
     $data = [
-      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')]),
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'kelas' => $this->db->get('kelas')->result_array(),
       'spp'   => $this->db->get('spp')->result_array(),
       'title' => 'Data Siswa | SMK BPI',

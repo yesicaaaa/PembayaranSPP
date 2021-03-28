@@ -42,9 +42,9 @@ class Signin extends CI_Controller
         ];
         $this->session->set_userdata($data);
         if ($user['level'] == 'Admin') {
-          redirect('admin');
+          redirect('admin_data_petugas');
         } else {
-          redirect('petugas');
+          redirect('petugas/transaksi_pembayaran');
         }
       } else {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong password!</div>');

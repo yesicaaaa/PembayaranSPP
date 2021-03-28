@@ -11,7 +11,7 @@ class Admin_data_spp extends CI_Controller{
   public function index()
   {
     $data = [
-      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')]),
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Data SPP | SMK BPI',
       'css'   => 'assets/css/side-navbar.css',
       'js'    => ''
@@ -75,7 +75,7 @@ class Admin_data_spp extends CI_Controller{
   public function editDataSpp()
   {
     $data = [
-      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')]),
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Data SPP | SMK BPI',
       'css'   => 'assets/css/side-navbar.css',
       'js'    => ''

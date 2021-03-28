@@ -7,7 +7,7 @@
   </nav>
   <div class="row">
     <div class="col-md-4 searchbar">
-      <form action="<?= base_url('petugas/transaksi_pembayaran') ?>" method="POST">
+      <form action="<?= base_url('admin/transaksi_pembayaran') ?>" method="POST">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Cari Nama Siswa..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
@@ -17,7 +17,7 @@
       </form>
     </div>
     <div class="col-md-3">
-      <a href="<?= base_url(); ?>petugas/refreshTP"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
+      <a href="<?= base_url(); ?>admin/refreshTP"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
   <?= form_error('id_petugas', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
@@ -79,7 +79,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('petugas/transaksi_pembayaran'); ?>" method="POST">
+      <form action="<?= base_url('admin/transaksi_pembayaran'); ?>" method="POST">
         <div class="modal-body">
           <div class="form-group">
             <select name="id_petugas" id="petugas" class="form-control">

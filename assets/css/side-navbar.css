@@ -119,3 +119,15 @@ body{
 	color: #282746;
 	font-weight: 600;
 }
+
+.img-petugas{
+	width: 3% !important;
+}
+
+.petugas-name{
+	margin-left: 70% !important;
+}
+
+.div-end{
+	margin-top: 120%;
+}

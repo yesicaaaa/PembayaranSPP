@@ -3,7 +3,7 @@
   <a class="navbar-brand">SMK BPI Bandung</a>
   <div class="btn-group btn-group-option">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-      <img class="img-circle" width="15%" src="<?= base_url()?>assets/img/<?= $this->session->gambar; ?>">
+      <img class="img-circle" width="15%" src="<?= base_url() ?>assets/img/<?= $this->session->gambar; ?>">
       <span class="user-name"><?= $this->session->nama; ?></span>
     </button>
     <ul class="dropdown-menu pull-right">
@@ -20,7 +20,7 @@
   <div class="divider"></div>
   <div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin') ;?>"><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
+      <li><a href="<?= base_url('admin_data_petugas'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
@@ -36,15 +36,15 @@
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Transaksi Pembayaran</span></a></li>
+      <li><a href="<?= base_url('admin/transaksi_pembayaran') ?>"><i class="fa fa-fw fa-users"></i><span>Transaksi Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
+      <li><a href="<?= base_url('admin/history_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href=""><i class="fa fa-fw fa-users"></i><span>Laporan</span></a></li>
+      <li><a href="<?= base_url('admin/laporan') ?>"><i class="fa fa-fw fa-users"></i><span>Laporan</span></a></li>
     </ul>
     <div class="divider"></div>
   </div>

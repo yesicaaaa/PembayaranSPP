@@ -53,10 +53,10 @@ class Admin extends CI_Controller
     }
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates_admin/header', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/transaksi-pembayaran', $data);
-      $this->load->view('templates_admin/footer', $data);
+      $this->load->view('templates/footer', $data);
     } else {
       $this->am->transaksiPembayaran();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -77,5 +77,20 @@ class Admin extends CI_Controller
   {
     $this->session->unset_userdata('keyword');
     redirect('petugas/transaksi_pembayaran');
+  }
+
+  public function my_profile()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'title' => 'Profile Saya | SMK BPI',
+      'css'   => 'assets/css/side-navbar.css',
+      'js'    => ''
+    ];
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/profile-saya', $data);
+    $this->load->view('templates/footer', $data);
   }
 }

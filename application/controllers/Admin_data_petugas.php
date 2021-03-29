@@ -52,10 +52,10 @@ class Admin_data_petugas extends CI_Controller
     }
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates_admin/header', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-petugas', $data);
-      $this->load->view('templates_admin/footer', $data);
+      $this->load->view('templates/footer', $data);
     } else {
       $this->am->addPetugas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -120,10 +120,10 @@ class Admin_data_petugas extends CI_Controller
     }
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates_admin/header', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-petugas', $data);
-      $this->load->view('templates_admin/footer', $data);
+      $this->load->view('templates/footer', $data);
     } else {
       $this->am->editPetugas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 

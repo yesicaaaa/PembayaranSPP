@@ -111,7 +111,12 @@
         <div class="modal-body">
           <input type="hidden" id="id_sppEdit" name="id_spp">
           <div class="form-group">
-            <input type="text" class="form-control" id="tahunEdit" name="tahun">
+            <select name="tahun" id="tahunEdit" class="form-control">
+              <option>Pilih Tahun</option>
+              <?php for ($tahun = 2008; $tahun <= date('Y'); $tahun++) : ?>
+                <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
+              <?php endfor; ?>
+            </select>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="nominalEdit" name="nominal">

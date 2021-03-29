@@ -75,6 +75,7 @@ class admin_model extends CI_Model
       'nis'   => htmlspecialchars($this->input->post('nis')),
       'nama'  => htmlspecialchars($this->input->post('nama')),
       'email' => htmlspecialchars($this->input->post('email')),
+      'gambar'  => 'default.png',
       'id_kelas'  => htmlspecialchars($this->input->post('id_kelas')),
       'alamat'  => htmlspecialchars($this->input->post('alamat')),
       'no_telp' => htmlspecialchars($this->input->post('no_telp')),

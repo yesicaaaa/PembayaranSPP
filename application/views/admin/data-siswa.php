@@ -184,8 +184,8 @@
           <div class="form-group">
             <select name="id_spp" id="sppEdit" class="form-control">
               <option>Pilih SPP</option>
-              <?php foreach ($siswa as $sw) : ?>
-                <option value="<?= $sw['id_spp']; ?>"><?= $sw['nominal']; ?></option>
+              <?php foreach ($spp as $s) : ?>
+                <option value="<?= $s['id_spp']; ?>">Rp<?= number_format($s['nominal'], 0, ',', '.'); ?></option>
               <?php endforeach; ?>
             </select>
           </div>

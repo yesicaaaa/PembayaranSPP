@@ -1,7 +1,8 @@
-<?php 
-defined ('BASEPATH') or exit ('No direct script access allowed');
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Main extends CI_Controller{
+class Main extends CI_Controller
+{
   public function index()
   {
     $data = [
@@ -10,18 +11,20 @@ class Main extends CI_Controller{
       'js'    => ''
     ];
 
-    $this->load->view('landingpage.php', $data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('landingpage.php');
+    $this->load->view('templates/footer', $data);
   }
 
   public function signout_petugas()
   {
-    // $this->session->sess_destroy();
-    $this->session->unset_userdata('email');
-    $this->session->unset_userdata('level');
-    $this->session->unset_userdata('nama');
-    $this->session->unset_userdata('gambar');
-    $this->session->set_flashdata('message', '<div class="alert alert-success" 
-    role="alert">Kamu berhasil signout!</div>');
+    $this->session->sess_destroy();
     redirect('signin/signin_petugas');
+  }
+
+  public function signout_siswa()
+  {
+    $this->session->sess_destroy();
+    redirect('signin/signin_siswa');
   }
 }

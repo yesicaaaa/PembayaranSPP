@@ -44,10 +44,10 @@ class Admin_data_kelas extends CI_Controller{
     }
 
     if($this->form_validation->run() == false){
-      $this->load->view('templates_admin/header', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-kelas', $data);
-      $this->load->view('templates_admin/footer', $data);
+      $this->load->view('templates/footer', $data);
     } else {
       $this->am->addDataKelas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -108,10 +108,10 @@ class Admin_data_kelas extends CI_Controller{
     }
 
     if ($this->form_validation->run() == false) {
-      $this->load->view('templates_admin/header', $data);
+      $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-kelas', $data);
-      $this->load->view('templates_admin/footer', $data);
+      $this->load->view('templates/footer', $data);
     } else {
       $this->am->editDataKelas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 

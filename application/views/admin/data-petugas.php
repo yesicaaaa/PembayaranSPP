@@ -60,7 +60,7 @@
           <td><?= $pt['level'] ?></td>
           <td>
             <a href="javascript:getData(<?= $pt['id_petugas'] ?>);" class="badge badge-edit">Edit</a>
-            <a href="<?= base_url(); ?>admin/deletePetugas/<?= $pt['id_petugas']; ?>" class="badge badge-delete" onclick="return confirm('Are You Sure?')">Delete</a>
+            <a href="<?= base_url(); ?>admin_data_petugas/deletePetugas/<?= $pt['id_petugas']; ?>" class="badge badge-delete" onclick="return confirm('Are You Sure?')">Delete</a>
           </td>
         </tr>
       <?php endforeach; ?>
@@ -82,7 +82,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('admin'); ?>" method="POST">
+      <form action="<?= base_url('admin_data_petugas'); ?>" method="POST">
         <div class="modal-body">
           <div class="form-group">
             <input type="text" class="form-control" id="nama_petugas" name="nama_petugas" placeholder="Nama Petugas">
@@ -131,7 +131,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('admin/editPetugas'); ?>" method="POST">
+      <form action="<?= base_url('admin_data_petugas/editPetugas'); ?>" method="POST">
         <div class="modal-body">
           <input type="hidden" id="id_petugasEdit" name="id_petugas">
           <div class="form-group">
@@ -171,7 +171,7 @@
     $.ajax({
       type: 'POST',
       dataType: 'json',
-      url: BASE_URL + 'admin/getPetugasRow',
+      url: BASE_URL + 'admin_data_petugas/getPetugasRow',
       data: {
         id_petugas: id_petugas
       },

@@ -7,24 +7,18 @@
 <!-- end navbar -->
 <!-- sidebar -->
 <div class="sidenav">
-  <h3 class="manage">Management</h3>
-  <div class="divider"></div>
   <div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('petugas/my_profile'); ?>"><i class="fa fa-fw fa-users"></i><span>Profile Saya</span></a></li>
-    </ul>
-    <div class="divider"></div>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('petugas/transaksi_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>Transaksi Pembayaran</span></a></li>
+      <li><a href="<?= base_url(''); ?>"><i class="fa fa-fw fa-users"></i><span>Profile Saya</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url(''); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
-    <div class="divider div-end"></div>
+    <div class="divider div-end-siswa"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('main/signout_petugas') ?>"><i class="fa fa-fw fa-chevron-circle-left"></i><span>Signout</span></a></li>
+      <li><a href="<?= base_url('main/signout_siswa') ?>"><i class="fa fa-fw fa-chevron-circle-left"></i><span>Signout</span></a></li>
     </ul>
     <div class="divider"></div>
   </div>

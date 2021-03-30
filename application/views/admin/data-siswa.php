@@ -122,7 +122,7 @@
             <select name="id_spp" id="spp" class="form-control">
               <option>Pilih SPP</option>
               <?php foreach ($spp as $sp) : ?>
-                <option value="<?= $sp['id_spp']; ?>"><?= $sp['nominal']; ?></option>
+                <option value="<?= $sp['id_spp']; ?>">Rp<?= number_format($sp['nominal'], 0, ',', '.'); ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -181,14 +181,14 @@
           <div class="form-group">
             <input type="text" class="form-control" id="alamatEdit" name="alamat">
           </div>
-          <div class="form-group">
+          <!-- <div class="form-group">
             <select name="id_spp" id="sppEdit" class="form-control">
               <option>Pilih SPP</option>
               <?php foreach ($spp as $s) : ?>
                 <option value="<?= $s['id_spp']; ?>">Rp<?= number_format($s['nominal'], 0, ',', '.'); ?></option>
               <?php endforeach; ?>
             </select>
-          </div>
+          </div> -->
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Edit</button>
@@ -218,7 +218,7 @@
           $('#kelasEdit').val(data.id_kelas),
           $('#no_telpEdit').val(data.no_telp),
           $('#alamatEdit').val(data.alamat),
-          $('#sppEdit').val(data.id_spp),
+          // $('#sppEdit').val(data.id_spp),
           $('#editSiswa').modal()
       }
     });

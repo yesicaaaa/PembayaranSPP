@@ -27,4 +27,5 @@ class Main extends CI_Controller
     $this->session->sess_destroy();
     redirect('signin/signin_siswa');
   }
+
 }

@@ -1,14 +1,15 @@
 <div class="main">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="javascript:void(0)"><i class="fa fa-fw fa-user mr-2"></i>History Pembayaran</a></li>
+      <li class="breadcrumb-item"><a href="javascript:void(0)"><i class="fa fa-fw fa-user mr-2"></i>Management</a></li>
+      <li class="breadcrumb-item active" aria-current="page">History Pembayaran</li>
     </ol>
   </nav>
   <div class="row">
     <div class="col-md-4 searchbar">
-      <form action="<?= base_url('siswa/history_pembayaran') ?>" method="POST">
+      <form action="<?= base_url('admin/history_pembayaran') ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari berdasarkan bulan..." name="keyword" autocomplete="off" autofocus>
+          <input type="text" class="form-control" placeholder="Cari berdasarkan nama..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
             <input class="btn btn-info" type="submit" name="submit">
           </div>
@@ -16,7 +17,7 @@
       </form>
     </div>
     <div class="col-md-3">
-      <a href="<?= base_url(); ?>siswa/refresh"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
+      <a href="<?= base_url(); ?>admin/refresh"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
   <!-- <h6>Hasil : <?= $total_rows; ?> Data</h6> -->
@@ -24,11 +25,12 @@
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col">NISN</th>
+        <th scope="col">Nama Siswa</th>
+        <th scope="col">Kelas</th>
         <th scope="col">Bulan</th>
         <th scope="col">Tahun</th>
-        <!-- <th scope="col">Kelas</th> -->
         <th scope="col">Jumlah Bayar</th>
-        <th scope="col">Nama Petugas</th>
         <th scope="col">Tanggal Bayar</th>
         <th scope="col">Status</th>
       </tr>
@@ -46,9 +48,9 @@
       <?php foreach ($history as $ht) : ?>
         <tr>
           <th scope="row"><?= ++$start ?></th>
-          <td><?= $ht['bulan_dibayar'] ?></td>
-          <td><?= $ht['tahun_dibayar'] ?></td>
-          <!-- <td><?= $ht['nama_kelas'] ?> <?= $ht['kompetensi_keahlian'] ?></td> -->
+          <td><?= $ht['nisn'] ?></td>
+          <td><?= $ht['nama'] ?></td>
+          <td><?= $ht['nama_kelas'] ?> <?= $ht['kompetensi_keahlian'] ?></td>
           <td><?= $ht['jumlah_bayar'] ?></td>
           <td><?= $ht['nama_petugas'] ?></td>
           <td><?= $ht['tgl_bayar'] ?></td>

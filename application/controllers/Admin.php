@@ -16,6 +16,7 @@ class Admin extends CI_Controller
       'spp'   => $this->db->get('spp')->result_array(),
       'kelas' => $this->db->get('kelas')->result_array(),
       'petugas' => $this->db->get('petugas')->result_array(),
+      'pembayaran'  => $this->db->get('pembayaran')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css',
       'js'    => ''
@@ -61,7 +62,7 @@ class Admin extends CI_Controller
       $this->am->transaksiPembayaran();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
           role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-      redirect('petugas/transaksi_pembayaran');
+      redirect('admin/transaksi_pembayaran');
     }
   }
 
@@ -76,7 +77,7 @@ class Admin extends CI_Controller
   public function refreshTP()
   {
     $this->session->unset_userdata('keyword');
-    redirect('petugas/transaksi_pembayaran');
+    redirect('admin/transaksi_pembayaran');
   }
 
   public function my_profile()
@@ -91,6 +92,40 @@ class Admin extends CI_Controller
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
     $this->load->view('admin/profile-saya', $data);
+    $this->load->view('templates/footer', $data);
+  }
+
+  public function history_pembayaran()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'title' => 'History Pembayaran | SMK BPI',
+      'css'   => 'assets/css/side-navbar.css',
+      'js'    => ''
+    ];
+
+    if ($this->input->post('submit')) {
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    //pagination 
+    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/history_pembayaran';
+    $config['total_rows'] = $this->am->countHistoryPembayaran();
+    $config['per_page'] = 5;
+
+    $this->pagination->initialize($config);
+
+    $data['start'] = $this->uri->segment(3);
+    $start = ($data['start'] > 0) ? $data['start'] : 0;
+
+    $data['history'] = $this->am->getHistoryPembayaran($config['per_page'], $start, $data['keyword']);
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/history-pembayaran', $data);
     $this->load->view('templates/footer', $data);
   }
 }

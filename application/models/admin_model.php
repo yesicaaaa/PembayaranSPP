@@ -196,6 +196,16 @@ class admin_model extends CI_Model
     $this->db->update('spp', $data);
   }
 
+  public function getSppSiswa()
+  {
+    $sql = "SELECT `id_spp` FROM `siswa` 
+            UNION 
+            SELECT `id_spp` FROM `spp`
+            ";
+
+    return $this->db->query($sql)->result_array();
+  }
+
   //MANAGEMENY TRANSAKSI PEMBAYARAN
   public function getDataSiswaSpp($limit, $start, $keyword = null)
   {
@@ -242,5 +252,13 @@ class admin_model extends CI_Model
     ];
 
     return $this->db->insert('pembayaran', $data);
+  }
+
+  public function getHistoryPembayaran($limit, $start, $keyword = null)
+  {
+    if ($keyword != null) {
+      $sql = "SELECT `pembayaran`.*, `log_pembayaran`, `
+              ";
+    }
   }
 }

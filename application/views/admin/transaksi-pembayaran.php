@@ -129,6 +129,16 @@
             <input type="text" class="form-control" id="jumlah_bayar" name="jumlah_bayar" placeholder="Total Bayar">
           </div>
           <div class="form-group">
+            <select name="level" id="level" class="form-control">
+              <option>Pilih Status</option>
+              <?php $status = array('Lunas', 'Belum Lunas');
+              for ($s = 0; $s < 2; $s++) :
+              ?>
+                <option value="<?= $status[$s]; ?>"><?= $status[$s]; ?></option>
+              <?php endfor; ?>
+            </select>
+          </div>
+          <div class="form-group">
             <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar" placeholder="Tanggal Bayar">
           </div>
         </div>

@@ -1,7 +1,8 @@
-<?php  
-defined('BASEPATH') or exit ('No direct access script allowed');
+<?php
+defined('BASEPATH') or exit('No direct access script allowed');
 
-class Admin_data_spp extends CI_Controller{
+class Admin_data_spp extends CI_Controller
+{
   public function __construct()
   {
     parent::__construct();
@@ -12,12 +13,13 @@ class Admin_data_spp extends CI_Controller{
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'siswa' => $this->am->getSppSiswa(),
       'title' => 'Data SPP | SMK BPI',
       'css'   => 'assets/css/side-navbar.css',
       'js'    => ''
     ];
-    
-    if($this->input->post('submit')){
+
+    if ($this->input->post('submit')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
     } else {
@@ -38,12 +40,12 @@ class Admin_data_spp extends CI_Controller{
     $start = ($data['start']) ? $data['start'] : 0;
     $data['spp'] = $this->am->getDataSpp($config['per_page'], $start, $data['keyword']);
 
-    if(!$this->input->post('submit')){
+    if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('tahun', 'Tahun', 'required');
       $this->form_validation->set_rules('nominal', 'Nominal SPP', 'required');
     }
 
-    if($this->form_validation->run() == false){
+    if ($this->form_validation->run() == false) {
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-spp', $data);

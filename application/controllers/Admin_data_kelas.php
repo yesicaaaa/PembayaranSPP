@@ -6,6 +6,7 @@ class Admin_data_kelas extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('admin_model', 'am');
+    is_logged_in();
   }
 
   public function index()

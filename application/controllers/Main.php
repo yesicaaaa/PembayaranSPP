@@ -28,4 +28,13 @@ class Main extends CI_Controller
     redirect('signin/signin_siswa');
   }
 
+  public function blocked_petugas()
+  {
+    $this->load->view('blocked_petugas');
+  }
+
+  public function blocked_siswa()
+  {
+    $this->load->view('blocked_siswa');
+  }
 }

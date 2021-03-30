@@ -7,6 +7,7 @@ class Siswa extends CI_Controller
   {
     parent::__construct();
     $this->load->model('siswa_model', 'sm');
+    is_logged_in_siswa();
   }
 
   public function index()

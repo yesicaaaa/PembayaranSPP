@@ -7,6 +7,7 @@ class Admin_data_spp extends CI_Controller
   {
     parent::__construct();
     $this->load->model('admin_model', 'am');
+    is_logged_in();
   }
 
   public function index()

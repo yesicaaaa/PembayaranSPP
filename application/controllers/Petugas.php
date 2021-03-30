@@ -7,6 +7,7 @@ class Petugas extends CI_Controller
   {
     parent::__construct();
     $this->load->model('petugas_model', 'pm');
+    is_logged_in_petugas();
   }
 
   public function transaksi_pembayaran()

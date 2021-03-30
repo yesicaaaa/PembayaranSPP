@@ -91,7 +91,7 @@ class Signin extends CI_Controller
           'nama'  => $user['nama'],
           'gambar'   => $user['gambar'],
           'id_spp'  => $user['id_spp'],
-          'id_kelas' => $user['id_kelas'],
+          'id_kelas'  => $user['id_kelas'],
           'nisn'  => $user['nisn']
         ];
         $this->session->set_userdata($data);

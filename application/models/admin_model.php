@@ -88,7 +88,9 @@ class admin_model extends CI_Model
 
   public function deleteSiswa($nisn)
   {
-    return $this->db->delete('siswa', ['nisn' => $nisn]);
+    $this->db->delete('pembayaran', ['nisn' => $nisn]);
+    $this->db->delete('siswa', ['nisn' => $nisn]);
+    return true;
   }
 
   public function editDataSiswa()

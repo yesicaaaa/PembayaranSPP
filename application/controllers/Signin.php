@@ -12,8 +12,7 @@ class Signin extends CI_Controller
   {
     $data = [
       'title' => 'Signin | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
@@ -22,7 +21,7 @@ class Signin extends CI_Controller
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/header', $data);
       $this->load->view('users/signin-petugas');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->_signin_petugas();
     }
@@ -62,8 +61,7 @@ class Signin extends CI_Controller
   {
     $data = [
       'title' => 'Signin | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
@@ -72,7 +70,7 @@ class Signin extends CI_Controller
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/header', $data);
       $this->load->view('users/signin-siswa');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->_signin_siswa();
     }
@@ -110,8 +108,7 @@ class Signin extends CI_Controller
   {
     $data = [
       'title' => 'Forgot Password | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
@@ -119,7 +116,7 @@ class Signin extends CI_Controller
     if($this->form_validation->run() ==  false){
       $this->load->view('templates/header', $data);
       $this->load->view('users/forgot-password-petugas');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $email = $this->input->post('email');
       $user = $this->db->get_where('petugas', ['email' => $email])->row_array();
@@ -210,8 +207,7 @@ class Signin extends CI_Controller
 
     $data = [
       'title' => 'Change Password | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]');
@@ -220,7 +216,7 @@ class Signin extends CI_Controller
     if($this->form_validation->run() == false){
       $this->load->view('templates/header', $data);
       $this->load->view('users/change-password-petugas');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $password = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
       $email = $this->session->userdata('reset_email');
@@ -242,8 +238,7 @@ class Signin extends CI_Controller
   {
     $data = [
       'title' => 'Forgot Password | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('email', 'Email', 'trim|valid_email|required');
@@ -251,7 +246,7 @@ class Signin extends CI_Controller
     if ($this->form_validation->run() ==  false) {
       $this->load->view('templates/header', $data);
       $this->load->view('users/forgot-password-siswa');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $email = $this->input->post('email');
       $user = $this->db->get_where('siswa', ['email' => $email])->row_array();
@@ -342,8 +337,7 @@ class Signin extends CI_Controller
 
     $data = [
       'title' => 'Change Password | SMK BPI Bandung',
-      'css'   => 'assets/css/signin.css',
-      'js'    => ''
+      'css'   => 'assets/css/signin.css'
     ];
 
     $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[6]|matches[password2]');
@@ -352,7 +346,7 @@ class Signin extends CI_Controller
     if ($this->form_validation->run() == false) {
       $this->load->view('templates/header', $data);
       $this->load->view('users/change-password-siswa');
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $password = htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT));
       $email = $this->session->userdata('reset_email');

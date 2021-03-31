@@ -18,8 +18,7 @@ class Petugas extends CI_Controller
       'kelas' => $this->db->get('kelas')->result_array(),
       'petugas' => $this->db->get('petugas')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -57,7 +56,7 @@ class Petugas extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_petugas/side-navbar', $data);
       $this->load->view('petugas/transaksi-pembayaran', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->pm->transaksiPembayaran();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -85,13 +84,53 @@ class Petugas extends CI_Controller
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Profile Saya | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_petugas/side-navbar', $data);
     $this->load->view('petugas/profile-saya', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function history_pembayaran()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'title' => 'History Pembayaran | SMK BPI',
+      'css'   => 'assets/css/side-navbar.css'
+    ];
+
+    if($this->input->post('submit')){
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    //pagination
+    $config['base_url'] = 'http://localhost/pembayaranSPP/petugas/history_pembayaran';
+    $this->db->like('nisn', $data['keyword']);
+    $this->db->from('pembayaran');
+    $config['total_rows'] = $this->db->count_all_results();
+    $data['total_rows'] = $config['total_rows'];
+    $config['per_page'] = 5;
+
+    $this->pagination->initialize($config);
+
+    $data['start'] = $this->uri->segment(3);
+    $start = ($data['start'] > 0) ? $data['start'] : 0;
+    $data['history'] = $this->pm->getDataHistory($config['per_page'], $start, $data['keyword']);
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_petugas/side-navbar.php', $data);
+    $this->load->view('petugas/history-pembayaran', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function refreshHP()
+  {
+    $this->session->unset_userdata('keyword');
+    redirect('petugas/history_pembayaran');
   }
 }

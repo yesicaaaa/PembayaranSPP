@@ -14,10 +14,9 @@ class Admin_data_spp extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'siswa' => $this->am->getSppSiswa(),
+      // 'siswa' => $this->am->getSppSiswa(),
       'title' => 'Data SPP | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -50,7 +49,7 @@ class Admin_data_spp extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-spp', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->addDataSpp();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -61,10 +60,18 @@ class Admin_data_spp extends CI_Controller
 
   public function deleteDataSpp($id_spp)
   {
-    $this->am->deleteDataSpp($id_spp);
-    $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Data SPP berhasil dihapus!</div>');
-    redirect('admin_data_spp');
+    $siswaSpp = $this->db->get_where('siswa', ['id_spp' => $id_spp])->num_rows();
+
+    if($siswaSpp == 0){
+      $this->am->deleteDataSpp($id_spp);
+      $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Data SPP berhasil dihapus!</div>');
+      redirect('admin_data_spp');
+    } else {
+      $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Data SPP tidak bisa dihapus!</div>');
+      redirect('admin_data_spp');
+    }
   }
 
   public function getSppRow()
@@ -80,8 +87,7 @@ class Admin_data_spp extends CI_Controller
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Data SPP | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -114,7 +120,7 @@ class Admin_data_spp extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-spp', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->editDataSpp();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 

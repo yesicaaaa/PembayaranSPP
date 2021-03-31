@@ -20,16 +20,11 @@ class admin_model extends CI_Model
 
   public function getPetugas($limit, $start, $keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT * FROM `petugas`
-              WHERE `nama_petugas` LIKE '%$keyword%'
-              LIMIT $start, $limit
+    $sql = "SELECT * FROM `petugas`
+            WHERE `nama_petugas` LIKE '%$keyword%'
+            ORDER BY `nama_petugas` ASC
+            LIMIT $start, $limit
             ";
-    } else {
-      $sql = "SELECT * FROM `petugas`
-              LIMIT $start, $limit
-              ";
-    }
 
     return $this->db->query($sql)->result_array();
   }
@@ -62,7 +57,18 @@ class admin_model extends CI_Model
             JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
             JOIN `spp` ON `siswa`.`id_spp` = `spp`.`id_spp`
             WHERE `siswa`.`nama` LIKE '%$keyword%'
+            ORDER BY `siswa`.`nama` ASC
             LIMIT $start, $limit
+          ";
+
+    return $this->db->query($sql)->result_array();
+  }
+
+  public function getDataPembayaranRow()
+  {
+    $sql = "SELECT `nisn`
+            FROM `siswa`
+            WHERE NOT EXISTS (SELECT `nisn` FROM `pembayaran` WHERE `pembayaran`.`nisn` = `siswa`.`nisn`)
           ";
 
     return $this->db->query($sql)->result_array();
@@ -90,7 +96,6 @@ class admin_model extends CI_Model
   {
     $this->db->delete('pembayaran', ['nisn' => $nisn]);
     $this->db->delete('siswa', ['nisn' => $nisn]);
-    return true;
   }
 
   public function editDataSiswa()
@@ -114,16 +119,11 @@ class admin_model extends CI_Model
   //MANAGEMENT DATA KELAS
   public function getDataKelas($limit, $start, $keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT * FROM `kelas`
-              WHERE `kompetensi_keahlian` LIKE '%$keyword%'
-              LIMIT $start, $limit
+    $sql = "SELECT * FROM `kelas`
+            WHERE `kompetensi_keahlian` LIKE '%$keyword%'
+            ORDER BY `nama_kelas` ASC
+            LIMIT $start, $limit
             ";
-    } else {
-      $sql = "SELECT * FROM `kelas`
-              LIMIT $start, $limit
-            ";
-    }
 
     return $this->db->query($sql)->result_array();
   }
@@ -158,16 +158,11 @@ class admin_model extends CI_Model
   //MANAGEMENT DATA SPP
   public function getDataSpp($limit, $start, $keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT * FROM `spp`
-              WHERE `nominal` LIKE '%$keyword%'
-              LIMIT $start, $limit
-              ";
-    } else {
-      $sql = "SELECT * FROM `spp`
-              LIMIT $start, $limit
-              ";
-    }
+    $sql = "SELECT * FROM `spp`
+            WHERE `nominal` LIKE '%$keyword%'
+            ORDER BY `tahun` DESC
+            LIMIT $start, $limit
+            ";
 
     return $this->db->query($sql)->result_array();
   }
@@ -198,33 +193,16 @@ class admin_model extends CI_Model
     $this->db->update('spp', $data);
   }
 
-  public function getSppSiswa()
-  {
-    $sql = "SELECT `id_spp` FROM `siswa` 
-            UNION 
-            SELECT `id_spp` FROM `spp`
-            ";
-
-    return $this->db->query($sql)->result_array();
-  }
-
   //MANAGEMENY TRANSAKSI PEMBAYARAN
   public function getDataSiswaSpp($limit, $start, $keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT `siswa`.*, `kelas`.* 
-              FROM `siswa`
-              JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
-              WHERE `siswa`.`nama` LIKE '%$keyword%'
-              LIMIT $start, $limit
-              ";
-    } else {
-      $sql = "SELECT `siswa`.*, `kelas`.* 
-              FROM `siswa`
-              JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
-              LIMIT $start, $limit
-              ";
-    }
+    $sql = "SELECT `siswa`.*, `kelas`.* 
+            FROM `siswa`
+            JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+            WHERE `siswa`.`nama` LIKE '%$keyword%'
+            ORDER BY `siswa`.`nama` ASC
+            LIMIT $start, $limit
+            ";
 
     return $this->db->query($sql)->result_array();
   }
@@ -250,17 +228,40 @@ class admin_model extends CI_Model
       'bulan_dibayar' => htmlspecialchars($this->input->post('bulan_dibayar')),
       'tahun_dibayar' => htmlspecialchars($this->input->post('tahun_dibayar')),
       'id_spp'  => htmlspecialchars($this->input->post('id_spp')),
-      'jumlah_bayar'  => htmlspecialchars($this->input->post('jumlah_bayar'))
+      'jumlah_bayar'  => htmlspecialchars($this->input->post('jumlah_bayar')),
+      'status'  => 'Lunas'
     ];
 
     return $this->db->insert('pembayaran', $data);
   }
 
+
+  //MANAGEMENT HISTORY PEMBAYARAN
   public function getHistoryPembayaran($limit, $start, $keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT `pembayaran`.*, `log_pembayaran`, `
-              ";
-    }
+    $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
+            FROM `pembayaran`
+            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
+            JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
+            WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
+            ORDER BY  `pembayaran`.`tgl_bayar` DESC
+            LIMIT $start, $limit
+            ";
+
+    return $this->db->query($sql)->result_array();
   }
+
+  public function getHistoryRows()
+  {
+    $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
+            FROM `pembayaran`
+            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
+            JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
+            ";
+
+    return $this->db->query($sql)->num_rows();
+  }
+
+  //MANAGEMENT LAPORAN
+
 }

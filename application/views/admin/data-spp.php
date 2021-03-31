@@ -51,9 +51,7 @@
           <td>Rp<?= number_format($s['nominal'], 0, ',', '.'); ?></td>
           <td>
             <a href="javascript:getData(<?= $s['id_spp'] ?>);" class="badge badge-edit">Edit</a>
-            <?php if ($siswa > 0) : ?>
-              <a href="<?= base_url(); ?>admin_data_spp/deleteDataSpp/<?= $s['id_spp']; ?>" class="badge badge-delete" onclick="return confirm('Are You Sure?')">Delete</a>
-            <?php endif; ?>
+            <a href="<?= base_url(); ?>admin_data_spp/deleteDataSpp/<?= $s['id_spp']; ?>" class="badge badge-delete" onclick="return confirm('Are You Sure?')">Delete</a>
           </td>
         </tr>
       <?php endforeach; ?>

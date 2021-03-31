@@ -50,4 +50,17 @@ class Petugas_model extends CI_Model
 
     return $this->db->insert('pembayaran', $data);
   }
+
+  public function getDataHistory($limit, $start, $keyword = null)
+  {
+    $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
+            FROM `pembayaran` 
+            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
+            JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
+            WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
+            LIMIT $start, $limit
+            ";
+
+    return $this->db->query($sql)->result_array();
+  }
 }

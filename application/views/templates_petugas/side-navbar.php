@@ -19,7 +19,7 @@
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url(''); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
+      <li><a href="<?= base_url('petugas/history_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <div class="divider div-end"></div>

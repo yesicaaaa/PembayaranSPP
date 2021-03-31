@@ -15,8 +15,7 @@ class Admin_data_petugas extends CI_Controller
     $data  = [
       'user'    => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title'   => 'Data Petugas | SMK BPI',
-      'css'     => 'assets/css/side-navbar.css',
-      'js'      => ''
+      'css'     => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -56,7 +55,7 @@ class Admin_data_petugas extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-petugas', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->addPetugas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -85,8 +84,7 @@ class Admin_data_petugas extends CI_Controller
     $data  = [
       'user'    => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title'   => 'Data Petugas | SMK BPI',
-      'css'     => 'assets/css/side-navbar.css',
-      'js'      => ''
+      'css'     => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -124,7 +122,7 @@ class Admin_data_petugas extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-petugas', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->editPetugas();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 

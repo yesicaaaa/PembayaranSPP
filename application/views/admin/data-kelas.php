@@ -134,9 +134,9 @@
       },
       success: function(data) {
         $('#id_kelasEdit').val(data.id_kelas),
-        $('#nama_kelasEdit').val(data.nama_kelas),
-        $('#kompetensi_keahlianEdit').val(data.kompetensi_keahlian),
-        $('#editKelas').modal()
+          $('#nama_kelasEdit').val(data.nama_kelas),
+          $('#kompetensi_keahlianEdit').val(data.kompetensi_keahlian),
+          $('#editKelas').modal()
       }
     });
   }

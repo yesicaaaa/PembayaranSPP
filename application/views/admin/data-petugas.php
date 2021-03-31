@@ -7,7 +7,7 @@
   </nav>
   <div class="row">
     <div class="col-md-4 searchbar">
-      <form action="<?= base_url('admin') ?>" method="POST">
+      <form action="<?= base_url('admin_data_petugas') ?>" method="POST">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Cari Nama Petugas..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
@@ -17,7 +17,7 @@
       </form>
     </div>
     <div class="col-md-3">
-      <a href="<?= base_url(); ?>admin/refresh"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
+      <a href="<?= base_url(); ?>admin_data_petugas/refresh"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
   <?= form_error('nama_petugas', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
@@ -28,6 +28,7 @@
   <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahPetugas"><i class="fa fa-fw fa-user-plus"></i> Tambah Petugas</a>
+  <h6>Hasil : <?= $total_rows; ?> Data</h6>
   <table class="table">
     <thead>
       <tr>
@@ -90,8 +91,8 @@
           <div class="form-group">
             <select name="level" id="level" class="form-control">
               <option>Select Menu</option>
-              <?php $level = array('Admin','Petugas'); 
-                    for($lvl=0; $lvl < 2; $lvl++) : ?>
+              <?php $level = array('Admin', 'Petugas');
+              for ($lvl = 0; $lvl < 2; $lvl++) : ?>
                 <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>
               <?php endfor; ?>
             </select>
@@ -178,12 +179,12 @@
       },
       success: function(data) {
         $('#id_petugasEdit').val(data.id_petugas),
-        $('#nama_petugasEdit').val(data.nama_petugas),
-        $('#levelEdit').val(data.level),
-        $('#emailEdit').val(data.email),
-        $('#no_telpEdit').val(data.no_telp),
-        $('#alamatEdit').val(data.alamat),
-        $('#editPetugas').modal()
+          $('#nama_petugasEdit').val(data.nama_petugas),
+          $('#levelEdit').val(data.level),
+          $('#emailEdit').val(data.email),
+          $('#no_telpEdit').val(data.no_telp),
+          $('#alamatEdit').val(data.alamat),
+          $('#editPetugas').modal()
       }
     });
   }

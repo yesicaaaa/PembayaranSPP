@@ -2,14 +2,14 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="javascript:void(0)"><i class="fa fa-fw fa-user mr-2"></i>Management</a></li>
-      <li class="breadcrumb-item active" aria-current="page">History Pembayaran</li>
+      <li class="breadcrumb-item active" aria-current="page">Laporan</li>
     </ol>
   </nav>
   <div class="row">
     <div class="col-md-4 searchbar">
-      <form action="<?= base_url('admin/history_pembayaran') ?>" method="POST">
+      <form action="<?= base_url('admin/laporan') ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari NISN siswa..." name="keyword" autocomplete="off" autofocus>
+          <input type="text" class="form-control" placeholder="Cari berdasarkan tahun..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
             <input class="btn btn-info" type="submit" name="submit">
           </div>
@@ -24,13 +24,11 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">NISN</th>
-        <th scope="col">Nama Siswa</th>
-        <th scope="col">Bulan</th>
+        <th scope="col">Tanggal</th>
         <th scope="col">Tahun</th>
-        <th scope="col">Jumlah Bayar</th>
-        <th scope="col">Nama Petugas</th>
-        <th scope="col">Tanggal Bayar</th>
+        <th scope="col">NIS</th>
+        <th scope="col">Nama Siswa</th>
+        <th scope="col">Jumlah Dibayar/Tahun</th>
         <th scope="col">Status</th>
       </tr>
     </thead>
@@ -47,7 +45,7 @@
       <?php foreach ($history as $ht) : ?>
         <tr>
           <th scope="row"><?= ++$start ?></th>
-          <td><?= $ht['nisn'] ?></td>
+          <td><?= $ht['tgl'] ?></td>
           <td><?= $ht['nama'] ?></td>
           <td><?= $ht['bulan_dibayar'] ?></td>
           <td><?= $ht['tahun_dibayar'] ?></td>

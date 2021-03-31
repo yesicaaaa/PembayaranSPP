@@ -7,13 +7,12 @@ class Main extends CI_Controller
   {
     $data = [
       'title' => 'Pembayaran SPP | SMK BPI',
-      'css'   => 'assets/css/landingpage.css',
-      'js'    => ''
+      'css'   => 'assets/css/landingpage.css'
     ];
 
     $this->load->view('templates/header', $data);
     $this->load->view('landingpage.php');
-    $this->load->view('templates/footer', $data);
+    $this->load->view('templates/footer');
   }
 
   public function signout_petugas()
@@ -36,5 +35,10 @@ class Main extends CI_Controller
   public function blocked_siswa()
   {
     $this->load->view('blocked_siswa');
+  }
+
+  public function blocked()
+  {
+    $this->load->view('blocked');
   }
 }

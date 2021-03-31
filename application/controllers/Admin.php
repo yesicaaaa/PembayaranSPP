@@ -19,8 +19,7 @@ class Admin extends CI_Controller
       'petugas' => $this->db->get('petugas')->result_array(),
       'pembayaran'  => $this->db->get('pembayaran')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -58,7 +57,7 @@ class Admin extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/transaksi-pembayaran', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->transaksiPembayaran();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -86,14 +85,13 @@ class Admin extends CI_Controller
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Profile Saya | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
     $this->load->view('admin/profile-saya', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('templates/footer');
   }
 
   public function history_pembayaran()
@@ -101,8 +99,7 @@ class Admin extends CI_Controller
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'History Pembayaran | SMK BPI',
-      'css'   => 'assets/css/side-navbar.css',
-      'js'    => ''
+      'css'   => 'assets/css/side-navbar.css'
     ];
 
     if ($this->input->post('submit')) {
@@ -114,7 +111,7 @@ class Admin extends CI_Controller
 
     //pagination 
     $config['base_url'] = 'http://localhost/pembayaranSPP/admin/history_pembayaran';
-    $config['total_rows'] = $this->am->countHistoryPembayaran();
+    $config['total_rows'] = $this->am->getHistoryRows();
     $config['per_page'] = 5;
 
     $this->pagination->initialize($config);
@@ -127,6 +124,34 @@ class Admin extends CI_Controller
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
     $this->load->view('admin/history-pembayaran', $data);
-    $this->load->view('templates/footer', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function refreshHP()
+  {
+    $this->session->unset_userdata('keyword');
+    redirect('admin/history_pembayaran');
+  }
+
+  //LAPORAN
+  public function laporan()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'title' => 'Laporan | SMK BPI',
+      'css'   => 'assets/css/side-navbar.css'
+    ];
+
+    if ($this->input->post('submit')) {
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/laporan', $data);
+    $this->load->view('templates/footer');
   }
 }

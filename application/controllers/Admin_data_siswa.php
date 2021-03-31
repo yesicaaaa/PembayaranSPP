@@ -16,6 +16,7 @@ class Admin_data_siswa extends CI_Controller
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'kelas' => $this->db->get('kelas')->result_array(),
       'spp'   => $this->db->get('spp')->result_array(),
+      'pembayaran'  => $this->am->getDataPembayaranRow(),
       'title' => 'Data Siswa | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -58,7 +59,7 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-siswa', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->addDataSiswa();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
@@ -128,7 +129,7 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('templates/header', $data);
       $this->load->view('templates_admin/side-navbar', $data);
       $this->load->view('admin/data-siswa', $data);
-      $this->load->view('templates/footer', $data);
+      $this->load->view('templates/footer');
     } else {
       $this->am->editDataSiswa();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 

@@ -37,5 +37,10 @@ function is_logged_in_siswa()
   $ci = get_instance();
   if (!$ci->session->userdata('email')) {
     redirect('main');
+  } else {
+    $nisn = $ci->session->userdata('nisn');
+    if(!$nisn){
+      redirect('main/blocked');
+    }
   }
 }

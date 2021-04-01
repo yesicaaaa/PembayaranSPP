@@ -11,12 +11,14 @@ class Petugas_model extends CI_Model
               FROM `siswa`
               JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
               WHERE `siswa`.`nama` LIKE '%$keyword%'
+              ORDER BY `siswa`.`nama` ASC
               LIMIT $start, $limit
               ";
     } else {
       $sql = "SELECT `siswa`.*, `kelas`.* 
               FROM `siswa`
               JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+              ORDER BY `siswa`.`nama` ASC
               LIMIT $start, $limit
               ";
     }
@@ -26,7 +28,7 @@ class Petugas_model extends CI_Model
 
   public function getSiswaSppRow($nisn)
   {
-    $sql = "SELECT `siswa`.*, `kelas`.*, `spp`.`nominal`
+    $sql = "SELECT `siswa`.*, `kelas`.*, `spp`.*
             FROM `siswa`
             JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
             JOIN `spp` ON `siswa`.`id_spp` = `spp`.`id_spp`
@@ -58,6 +60,7 @@ class Petugas_model extends CI_Model
             JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
             JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
             WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
+            ORDER BY `pembayaran`.`tgl_bayar` DESC
             LIMIT $start, $limit
             ";
 

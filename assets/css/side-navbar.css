@@ -151,3 +151,30 @@ body{
 	font-size: 16px;
 	margin-bottom: 15px;
 }
+
+.div-log {
+	margin-top: 39%;
+}
+
+.laporanbulan span{
+	color: #fed049;
+}
+
+.refreshLaporan{
+	margin-left: -140px !important;
+	margin-top: 17px !important;
+}
+
+.btn-laporan{
+	width: 100%;
+	height: 70%;
+}
+
+.headcatatan{
+	font-size: 13px;
+	text-align: center;
+}
+
+.bodycatatan{
+	font-size: 14px;
+}

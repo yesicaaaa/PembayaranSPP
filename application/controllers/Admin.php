@@ -8,6 +8,8 @@ class Admin extends CI_Controller
     parent::__construct();
     $this->load->model('admin_model', 'am');
     is_logged_in();
+
+    $this->session->unset_userdata('keyword');
   }
 
   public function transaksi_pembayaran()
@@ -59,10 +61,20 @@ class Admin extends CI_Controller
       $this->load->view('admin/transaksi-pembayaran', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->transaksiPembayaran();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-      redirect('admin/transaksi_pembayaran');
+      $bulan_dibayar = $this->input->post('bulan_dibayar');
+      $tahun_dibayar = $this->input->post('tahun_dibayar');
+      $pembayaran = $this->db->get('pembayaran', ['nisn' => $this->input->post('nisn')])->row_array();
+
+      if ($pembayaran['bulan_dibayar'] != $bulan_dibayar && $pembayaran['tahun_dibayar'] != $tahun_dibayar) {
+        $this->am->transaksiPembayaran();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
+        redirect('admin/transaksi_pembayaran');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
+        redirect('admin/transaksi_pembayaran');
+      }
     }
   }
 
@@ -149,9 +161,43 @@ class Admin extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
+    //pagination
+    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/laporan';
+    $this->db->like('bulan_dibayar', $data['keyword']);
+    $this->db->from('pembayaran');
+    $config['total_rows'] = $this->db->count_all_results();
+    $config['per_page'] = 5;
+
+    $this->pagination->initialize($config);
+
+    $data['start'] = $this->uri->segment(3);
+    $start = ($data['start'] > 0) ? $data['start'] : 0;
+    $data['laporan'] = $this->am->getDataLaporan($config['per_page'], $start, $data['keyword']);
+
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
     $this->load->view('admin/laporan', $data);
+    $this->load->view('templates/footer');
+  }
+
+  public function refreshLP()
+  {
+    $this->session->unset_userdata('keyword');
+    redirect('admin/laporan');
+  }
+
+  public function catatan_database()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'catatan' => $this->db->get('log_petugas')->result_array(),
+      'title' => 'Catatan Database | SMK BPI',
+      'css'   => 'assets/css/side-navbar.css'
+    ];
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/catatan-database', $data);
     $this->load->view('templates/footer');
   }
 }

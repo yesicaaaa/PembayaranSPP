@@ -28,23 +28,28 @@
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin_data_kelas'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Kelas</span></a></li>
+      <li><a href="<?= base_url('admin_data_kelas'); ?>"><i class="fa fa-fw fa-home"></i><span>Data Kelas</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin_data_spp'); ?>"><i class="fa fa-fw fa-users"></i><span>Data SPP</span></a></li>
+      <li><a href="<?= base_url('admin_data_spp'); ?>"><i class="fa fa-fw fa-calculator"></i><span>Data SPP</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin/transaksi_pembayaran') ?>"><i class="fa fa-fw fa-users"></i><span>Transaksi Pembayaran</span></a></li>
+      <li><a href="<?= base_url('admin/transaksi_pembayaran') ?>"><i class="fa fa-fw fa-calculator"></i><span>Transaksi Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin/history_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
+      <li><a href="<?= base_url('admin/history_pembayaran'); ?>"><i class="fa fa-fw fa-tasks"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('admin/laporan') ?>"><i class="fa fa-fw fa-users"></i><span>Laporan</span></a></li>
+      <li><a href="<?= base_url('admin/laporan') ?>"><i class="fa fa-fw fa-clipboard"></i><span>Laporan</span></a></li>
+    </ul>
+    <div class="divider"></div>
+    <div class="divider div-log"></div>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="<?= base_url('admin/catatan_database') ?>"><i class="fa fa-fw fa-database"></i><span>Catatan Database</span></a></li>
     </ul>
     <div class="divider"></div>
   </div>

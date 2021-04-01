@@ -236,6 +236,8 @@ class admin_model extends CI_Model
   }
 
 
+
+
   //MANAGEMENT HISTORY PEMBAYARAN
   public function getHistoryPembayaran($limit, $start, $keyword = null)
   {
@@ -263,5 +265,25 @@ class admin_model extends CI_Model
   }
 
   //MANAGEMENT LAPORAN
+  public function getDataLaporan($limit, $start, $keyword = null)
+  {
+    if($keyword != null){
+    $sql = "SELECT  `siswa`.*, `pembayaran`.*
+            FROM `pembayaran`
+            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
+            WHERE `pembayaran`.`bulan_dibayar` LIKE '%$keyword%'
+            ORDER BY `pembayaran`.`tahun_dibayar` DESC
+            LIMIT $start, $limit
+            ";
+    } else {
+      $sql = "SELECT `siswa`.*, `pembayaran`.*
+            FROM `pembayaran`
+            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
+            ORDER BY `pembayaran`.`tahun_dibayar` DESC
+            LIMIT $start, $limit
+            ";
+    }
 
+    return $this->db->query($sql)->result_array();
+  }
 }

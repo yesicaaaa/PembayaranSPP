@@ -8,6 +8,8 @@ class Admin_data_spp extends CI_Controller
     parent::__construct();
     $this->load->model('admin_model', 'am');
     is_logged_in();
+
+    $this->session->unset_userdata('keyword');
   }
 
   public function index()

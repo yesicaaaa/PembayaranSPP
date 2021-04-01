@@ -26,6 +26,7 @@ class Siswa_model extends CI_Model
             FROM `pembayaran`
             JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
             WHERE `pembayaran`.`nisn` = '$nisn'
+            ORDER BY `pembayaran`.`tgl_bayar` DESC
             ";
 
     return $this->db->query($sql)->num_rows();

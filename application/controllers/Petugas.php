@@ -8,6 +8,8 @@ class Petugas extends CI_Controller
     parent::__construct();
     $this->load->model('petugas_model', 'pm');
     is_logged_in_petugas();
+
+    $this->session->unset_userdata('keyword');
   }
 
   public function transaksi_pembayaran()
@@ -58,10 +60,20 @@ class Petugas extends CI_Controller
       $this->load->view('petugas/transaksi-pembayaran', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->pm->transaksiPembayaran();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-      redirect('petugas/transaksi_pembayaran');
+      $bulan_dibayar = $this->input->post('bulan_dibayar');
+      $tahun_dibayar = $this->input->post('tahun_dibayar');
+      $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $this->input->post('nisn')])->row_array();
+
+      if($pembayaran['bulan_dibayar'] != $bulan_dibayar && $pembayaran['tahun_dibayar'] != $tahun_dibayar){
+        $this->pm->transaksiPembayaran();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
+        redirect('petugas/transaksi_pembayaran');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
+        redirect('petugas/transaksi_pembayaran');
+      }
     }
   }
 

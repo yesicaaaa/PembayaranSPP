@@ -29,7 +29,6 @@
   <?= form_error('id_spp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= form_error('jumlah_bayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
-  <h6>Hasil : <?= $total_rows; ?> Data</h6>
   <table class="table">
     <thead>
       <tr>
@@ -50,9 +49,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1 ?>
       <?php foreach ($siswa as $sw) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $sw['nisn'] ?></td>
           <td><?= $sw['nama'] ?></td>
           <td><?= $sw['nama_kelas'] ?> <?= $sw['kompetensi_keahlian'] ?></td>
@@ -114,7 +114,7 @@
             </select>
             <select name="tahun_dibayar" id="tahun_dibayar" class="form-control">
               <option>Tahun</option>
-              <?php for ($i = 2008; $i <= date('Y'); $i++) : ?>
+              <?php for ($i = 2021; $i <= date('Y'); $i++) : ?>
                 <option value="<?= $i; ?>"><?= $i; ?></option>
               <?php endfor; ?>
             </select>

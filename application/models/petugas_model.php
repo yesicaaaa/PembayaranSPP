@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Petugas_model extends CI_Model
 {
   //MANAGEMENY TRANSAKSI PEMBAYARAN
-  public function getDataSiswaSpp($limit, $start, $keyword = null)
+  public function getDataSiswaSpp($keyword = null)
   {
     if ($keyword != null) {
       $sql = "SELECT `siswa`.*, `kelas`.* 
@@ -12,14 +12,12 @@ class Petugas_model extends CI_Model
               JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
               WHERE `siswa`.`nama` LIKE '%$keyword%'
               ORDER BY `siswa`.`nama` ASC
-              LIMIT $start, $limit
               ";
     } else {
       $sql = "SELECT `siswa`.*, `kelas`.* 
               FROM `siswa`
               JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
               ORDER BY `siswa`.`nama` ASC
-              LIMIT $start, $limit
               ";
     }
 

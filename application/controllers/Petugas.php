@@ -30,19 +30,7 @@ class Petugas extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/transaksi_pembayaran/index';
-    $this->db->like('nama', $data['keyword']);
-    $this->db->from('siswa');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['siswa'] = $this->pm->getDataSiswaSpp($config['per_page'], $start, $data['keyword']);
+    $data['siswa'] = $this->pm->getDataSiswaSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('id_petugas', 'Nama Petugas', 'required');
@@ -62,16 +50,17 @@ class Petugas extends CI_Controller
     } else {
       $bulan_dibayar = $this->input->post('bulan_dibayar');
       $tahun_dibayar = $this->input->post('tahun_dibayar');
-      $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $this->input->post('nisn')])->row_array();
+      $nisn = $this->input->post('nisn');
+      $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
 
-      if($pembayaran['bulan_dibayar'] != $bulan_dibayar && $pembayaran['tahun_dibayar'] != $tahun_dibayar){
+      if($pembayaran > 0){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+        role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
+        redirect('petugas/transaksi_pembayaran');
+      } else {
         $this->pm->transaksiPembayaran();
         $this->session->set_flashdata('message', '<div class="alert alert-success" 
             role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-        redirect('petugas/transaksi_pembayaran');
-      } else {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-            role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('petugas/transaksi_pembayaran');
       }
     }

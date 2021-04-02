@@ -32,19 +32,7 @@ class Admin extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/transaksi_pembayaran/index';
-    $this->db->like('nama', $data['keyword']);
-    $this->db->from('siswa');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['siswa'] = $this->am->getDataSiswaSpp($config['per_page'], $start, $data['keyword']);
+    $data['siswa'] = $this->am->getDataSiswaSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('id_petugas', 'Nama Petugas', 'required');
@@ -65,9 +53,9 @@ class Admin extends CI_Controller
       $bulan_dibayar = $this->input->post('bulan_dibayar');
       $tahun_dibayar = $this->input->post('tahun_dibayar');
       $nisn = $this->input->post('nisn');
-      $pembayaran = $this->db->get('pembayaran', ['nisn' => $this->input->post('nisn')])->row_array();
+      $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
 
-      if ($pembayaran['nisn'] == $nisn && $pembayaran['bulan_dibayar'] == $bulan_dibayar && $pembayaran['tahun_dibayar'] == $tahun_dibayar) {
+      if ($pembayaran ==  1) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('admin/transaksi_pembayaran');
@@ -157,60 +145,39 @@ class Admin extends CI_Controller
     ];
 
     if ($this->input->post('submit')) {
-      $data = [
-        'keyword' => $this->input->post('keyword'),
-        'keyword2'  => $this->input->post('keyword2')
-      ];
-      $this->session->set_userdata($data);
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
     } else {
-      $data = [
-        'keyword' => $this->session->userdata('keyword'),
-        'keyword2'  => $this->session->userdata('keyword2'),
-      ];
+      $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    // $config['base_url'] = 'http://localhost/pembayaranSPP/admin/laporan';
-    // $this->db->like('bulan_dibayar', $data['keyword']);
-    // $this->db ->from('pembayaran');
-    // $config['total_rows'] = $this->db->count_all_results();
-    // $config['per_page'] = 5;
+    $siswa = $this->am->getSiswaLaporan($data['keyword']);
+    $dataSiswa = array();
 
-    // $this->pagination->initialize($config);
-
-    // $data['start'] = $this->uri->segment(3);
-    // $start = ($data['start'] > 0) ? $data['start'] : 0;
-    // $laporan = $this->am->getDataLaporan($config['per_page'], $start, $data['keyword'], $data['keyword2']);
-
-
-
-    $siswa  = $this->db->get('siswa')->result_array();
-    foreach($siswa as $s){
-      $nama =  $s['nama'];
-      $nisn =  $s['nisn'];
-    };
-
-    $pembayaran = $this->db->get('pembayaran')->result_array();
-    $month = $this->session->userdata('keyword');
-    $year = $this->session->userdata('keyword2');
-    $checkPembayaran = $this->am->checkPembayaran($nisn, $month, $year);
-
-    if($checkPembayaran == 1){
-      $status = 'Lunas';
-      $tgl_bayar = $pembayaran['tgl_bayar'];
-    } else {
-      $status = 'Belum Lunas';
-      $tgl_bayar = '-';
+    foreach ($siswa as $s) {
+      $bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
+      $jml_bulan = count($bulan);
+      for ($i = 0; $i < $jml_bulan; $i++) {
+        for($tahun = 2021; $tahun<=date('Y'); $tahun++){
+          $checkPembayaran  = $this->am->checkPembayaran($s['nisn'], $bulan[$i]);
+          if($checkPembayaran == 1){
+            $status = 'Lunas';
+          } else {
+            $status = 'Belum Lunas';
+            $tgl_bayar = '-';
+          }
+          $dataSiswa[] = array(
+            'nisn'  => $s['nisn'],
+            'nama'  => $s['nama'],
+            'bulan' => $bulan[$i],
+            'tahun' => $tahun,
+            'status'  => $status
+          );
+        }
+      }
     }
 
-    $dataSiswa = [
-      'nisn'  => $nisn,
-      'nama'  => $nama,
-      'bulan' => $this->session->userdata('keyword'),
-      'tahun' => $this->session->userdata('keyword2'),
-      'tgl_bayar' => $tgl_bayar,
-      'status'  => $status
-    ];
+    $data['siswa'] = $dataSiswa;
 
     $this->load->view('templates/header', $datatemplate);
     $this->load->view('templates_admin/side-navbar', $datatemplate);

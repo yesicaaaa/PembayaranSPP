@@ -265,13 +265,14 @@ class admin_model extends CI_Model
   }
 
   //MANAGEMENT LAPORAN
-  public function getDataLaporan($limit, $start, $keyword = null)
+  public function getDataLaporan($limit, $start, $keyword = null, $keyword2 = null)
   {
-    if($keyword != null){
-    $sql = "SELECT  `siswa`.*, `pembayaran`.*
+    if($keyword != null && $keyword2 != null){
+    $sql = "SELECT  `siswa`.*, `pembayaran`.`bulan_dibayar`, `pembayaran`.`tahun_dibayar`, `pembayaran`.`tgl_bayar`
             FROM `pembayaran`
             JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
             WHERE `pembayaran`.`bulan_dibayar` LIKE '%$keyword%'
+            AND `pembayaran`.`tahun_dibayar` LIKE '%$keyword2%'
             ORDER BY `pembayaran`.`tahun_dibayar` DESC
             LIMIT $start, $limit
             ";
@@ -285,5 +286,17 @@ class admin_model extends CI_Model
     }
 
     return $this->db->query($sql)->result_array();
+  }
+
+  public function checkPembayaran($nisn, $month, $year){
+    $sql = "SELECT `siswa`.`nisn`, `pembayaran`.`bulan_dibayar`, `pembayaran`.`tahun_dibayar`
+            FROM `siswa`
+            JOIN `pembayaran` ON `siswa`.`nisn` = `pembayaran`.`nisn`
+            WHERE `siswa`.`nisn` = '$nisn'
+            AND `pembayaran`.`bulan_dibayar` = '$month'
+            AND `pembayaran`.`tahun_dibayar` = '$year'
+            ";
+
+    return $this->db->query($sql)->num_rows();
   }
 }

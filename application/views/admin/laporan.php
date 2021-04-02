@@ -8,10 +8,9 @@
   <div class="row">
     <div class="col-md-4 searchbar">
       <form action="<?= base_url('admin/laporan') ?>" method="POST">
-        <div class="input-group mb-3">
-          <div class="form-group">
+          <div class="form-group input-group">
             <select name="keyword" class="form-control">
-              <option>Cari Per Bulan</option>
+              <option>Bulan</option>
               <?php
               $bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
               $jml_bulan = count($bulan);
@@ -19,7 +18,12 @@
                 <option value="<?= $bulan[$i]; ?>"><?= $bulan[$i]; ?></option>
               <?php endfor; ?>
             </select>
-          </div>
+            <select name="keyword2" id="tahun_dibayar" class="form-control">
+              <option>Tahun</option>
+              <?php for ($i = 2008; $i <= date('Y'); $i++) : ?>
+                <option value="<?= $i; ?>"><?= $i; ?></option>
+              <?php endfor; ?>
+            </select>
           <div class="input-group-append">
             <input class="btn btn-info btn-laporan" name="submit" type="submit">
           </div>
@@ -31,12 +35,12 @@
     </div>
   </div>
   <h5 class="laporanbulan">Laporan untuk <span>
-    <?php if(!$this->session->keyword) : ?>
-      semua bulan
-    <?php else :  ?>
-      bulan <?= $this->session->keyword; ?>
+      <?php if (!$this->session->keyword && !$this->session->keyword2) : ?>
+        semua bulan & tahun
+      <?php else :  ?>
+        bulan <?= $this->session->keyword; ?>, <?= $this->session->keyword2; ?>
       <?php endif; ?>
-  </span></h5>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -50,7 +54,7 @@
       </tr>
     </thead>
     <tbody>
-      <?php if (empty($laporan)) : ?>
+      <!-- <?php if (empty($laporan)) : ?>
         <tr>
           <td colspan="3">
             <div class="alert alert-danger" role="alert">
@@ -58,16 +62,16 @@
             </div>
           </td>
         </tr>
-      <?php endif; ?>
-      <?php foreach ($laporan as $lp) : ?>
+      <?php endif; ?> -->
+      <?php foreach ($dataSiswa as $key) : ?>
         <tr>
           <th scope="row"><?= ++$start ?></th>
-          <td><?= $lp['nisn'] ?></td>
-          <td><?= $lp['nama'] ?></td>
-          <td><?= $lp['bulan_dibayar'] ?></td>
-          <td><?= $lp['tahun_dibayar'] ?></td>
-          <td><?= $lp['tgl_bayar'] ?></td>
-          <td><?= $lp['status'] ?></td>
+          <td><?= $key->nisn ?></td>
+          <td><?= $key->nama ?></td>
+          <td><?= $key->bulan ?></td>
+          <td><?= $key->tahun ?></td>
+          <td><?= $key->tgl_bayar ?></td>
+          <td><?= $key->status ?></td>
         </tr>
       <?php endforeach; ?>
     </tbody>

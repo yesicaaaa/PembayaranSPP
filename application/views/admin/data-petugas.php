@@ -142,9 +142,10 @@
           <div class="form-group">
             <select name="level" id="levelEdit" class="form-control">
               <option>Select Menu</option>
-              <?php foreach ($petugas as $pt) : ?>
-                <option value="<?= $pt['level']; ?>"><?= $pt['level']; ?></option>
-              <?php endforeach; ?>
+              <?php $level = array('Admin', 'Petugas');
+              for ($lvl = 0; $lvl < 2; $lvl++) : ?>
+                <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>
+              <?php endfor; ?>
             </select>
           </div>
           <div class="form-group">

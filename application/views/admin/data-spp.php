@@ -24,7 +24,13 @@
   <?= form_error('nominal', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahDataSpp"><i class="fa fa-fw fa-user-plus"></i> Tambah Data SPP</a>
-  <h6>Hasil : <?= $total_rows ?></h6>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua SPP
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -44,9 +50,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1; ?>
       <?php foreach ($spp as $s) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $s['tahun'] ?></td>
           <td>Rp<?= number_format($s['nominal'], 0, ',', '.'); ?></td>
           <td>
@@ -57,7 +64,6 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 
 
@@ -78,7 +84,7 @@
           <div class="form-group">
             <select name="tahun" id="tahun" class="form-control">
               <option>Pilih Tahun</option>
-              <?php for ($tahun = 2008; $tahun <= date('Y'); $tahun++) : ?>
+              <?php for ($tahun = 2021; $tahun <= date('Y'); $tahun++) : ?>
                 <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
               <?php endfor; ?>
             </select>
@@ -113,7 +119,7 @@
           <div class="form-group">
             <select name="tahun" id="tahunEdit" class="form-control">
               <option>Pilih Tahun</option>
-              <?php for ($tahun = 2008; $tahun <= date('Y'); $tahun++) : ?>
+              <?php for ($tahun = 2021; $tahun <= date('Y'); $tahun++) : ?>
                 <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
               <?php endfor; ?>
             </select>

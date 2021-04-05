@@ -10,7 +10,6 @@ class Admin extends CI_Controller
     is_logged_in();
 
     $this->session->unset_userdata('keyword');
-    $this->session->unset_userdata('keyword2');
   }
 
   public function transaksi_pembayaran()
@@ -55,7 +54,7 @@ class Admin extends CI_Controller
       $nisn = $this->input->post('nisn');
       $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
 
-      if ($pembayaran ==  1) {
+      if ($pembayaran > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('admin/transaksi_pembayaran');
@@ -111,17 +110,7 @@ class Admin extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination 
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/history_pembayaran';
-    $config['total_rows'] = $this->am->getHistoryRows();
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-
-    $data['history'] = $this->am->getHistoryPembayaran($config['per_page'], $start, $data['keyword']);
+    $data['history'] = $this->am->getHistoryPembayaran($data['keyword']);
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
@@ -159,12 +148,11 @@ class Admin extends CI_Controller
       $jml_bulan = count($bulan);
       for ($i = 0; $i < $jml_bulan; $i++) {
         for($tahun = 2021; $tahun<=date('Y'); $tahun++){
-          $checkPembayaran  = $this->am->checkPembayaran($s['nisn'], $bulan[$i]);
+          $checkPembayaran  = $this->am->checkPembayaran($s['nisn'], $bulan[$i], $tahun);
           if($checkPembayaran == 1){
             $status = 'Lunas';
           } else {
             $status = 'Belum Lunas';
-            $tgl_bayar = '-';
           }
           $dataSiswa[] = array(
             'nisn'  => $s['nisn'],
@@ -196,7 +184,7 @@ class Admin extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'catatan' => $this->db->get('log_petugas')->result_array(),
+      'catatan' => $this->am->getLogPetugas(),
       'title' => 'Catatan Database | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];

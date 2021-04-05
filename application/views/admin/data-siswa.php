@@ -31,7 +31,13 @@
   <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahSiswa"><i class="fa fa-fw fa-user-plus"></i> Tambah Siswa Baru</a>
-  <h6>Hasil : <?= $total_rows; ?> Data</h6>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua siswa 
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -56,9 +62,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1; ?>
       <?php foreach ($siswa as $sw) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $sw['nisn'] ?></td>
           <td><?= $sw['nis'] ?></td>
           <td><?= $sw['nama'] ?></td>
@@ -74,7 +81,6 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 
 
@@ -170,8 +176,8 @@
           <div class="form-group">
             <select name="id_kelas" id="kelasEdit" class="form-control">
               <option>Pilih Kelas</option>
-              <?php foreach ($siswa as $sw) : ?>
-                <option value="<?= $sw['id_kelas']; ?>"><?= $sw['nama_kelas'] ?> <?= $sw['kompetensi_keahlian']; ?></option>
+              <?php foreach ($kelas as $kl) : ?>
+                <option value="<?= $kl['id_kelas']; ?>"><?= $kl['nama_kelas'] ?> <?= $kl['kompetensi_keahlian']; ?></option>
               <?php endforeach; ?>
             </select>
           </div>
@@ -181,14 +187,6 @@
           <div class="form-group">
             <input type="text" class="form-control" id="alamatEdit" name="alamat">
           </div>
-          <!-- <div class="form-group">
-            <select name="id_spp" id="sppEdit" class="form-control">
-              <option>Pilih SPP</option>
-              <?php foreach ($spp as $s) : ?>
-                <option value="<?= $s['id_spp']; ?>">Rp<?= number_format($s['nominal'], 0, ',', '.'); ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div> -->
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">Edit</button>
@@ -218,7 +216,6 @@
           $('#kelasEdit').val(data.id_kelas),
           $('#no_telpEdit').val(data.no_telp),
           $('#alamatEdit').val(data.alamat),
-          // $('#sppEdit').val(data.id_spp),
           $('#editSiswa').modal()
       }
     });

@@ -109,19 +109,7 @@ class Petugas extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/petugas/history_pembayaran';
-    $this->db->like('nisn', $data['keyword']);
-    $this->db->from('pembayaran');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['history'] = $this->pm->getDataHistory($config['per_page'], $start, $data['keyword']);
+    $data['history'] = $this->pm->getDataHistory($data['keyword']);
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_petugas/side-navbar.php', $data);

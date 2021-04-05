@@ -16,7 +16,6 @@ class Admin_data_spp extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      // 'siswa' => $this->am->getSppSiswa(),
       'title' => 'Data SPP | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -28,19 +27,7 @@ class Admin_data_spp extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_spp/index';
-    $this->db->like('nominal', $data['keyword']);
-    $this->db->from('spp');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start']) ? $data['start'] : 0;
-    $data['spp'] = $this->am->getDataSpp($config['per_page'], $start, $data['keyword']);
+    $data['spp'] = $this->am->getDataSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('tahun', 'Tahun', 'required');
@@ -99,19 +86,7 @@ class Admin_data_spp extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_spp/index';
-    $this->db->like('nominal', $data['keyword']);
-    $this->db->from('spp');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start']) ? $data['start'] : 0;
-    $data['spp'] = $this->am->getDataSpp($config['per_page'], $start, $data['keyword']);
+    $data['spp'] = $this->am->getDataSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('tahun', 'Tahun', 'required');

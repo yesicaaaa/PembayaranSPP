@@ -29,6 +29,13 @@
   <?= form_error('id_spp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= form_error('jumlah_bayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua siswa 
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -63,7 +70,6 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 
 

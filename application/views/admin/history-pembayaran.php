@@ -20,6 +20,13 @@
       <a href="<?= base_url(); ?>admin/refreshHP"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua NISN
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -44,9 +51,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1; ?>
       <?php foreach ($history as $ht) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $ht['nisn'] ?></td>
           <td><?= $ht['nama'] ?></td>
           <td><?= $ht['bulan_dibayar'] ?></td>
@@ -59,6 +67,5 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 </div>

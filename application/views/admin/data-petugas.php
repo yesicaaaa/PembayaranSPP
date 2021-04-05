@@ -28,7 +28,13 @@
   <?= form_error('password1', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahPetugas"><i class="fa fa-fw fa-user-plus"></i> Tambah Petugas</a>
-  <h6>Hasil : <?= $total_rows; ?> Data</h6>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua petugas
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -51,9 +57,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1; ?>
       <?php foreach ($petugas as $pt) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $pt['nama_petugas'] ?></td>
           <td><?= $pt['email'] ?></td>
           <td><?= $pt['no_telp'] ?></td>
@@ -67,7 +74,6 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 
 

@@ -27,19 +27,7 @@ class Admin_data_kelas extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_kelas/index/';
-    $this->db->like('kompetensi_keahlian', $data['keyword']);
-    $this->db->from('kelas');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['kelas'] = $this->am->getDataKelas($config['per_page'], $start, $data['keyword']);
+    $data['kelas'] = $this->am->getDataKelas($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_kelas', 'Tingkat Kelas', 'required');
@@ -98,19 +86,7 @@ class Admin_data_kelas extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_kelas/index/';
-    $this->db->like('kompetensi_keahlian', $data['keyword']);
-    $this->db->from('kelas');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['kelas'] = $this->am->getDataKelas($config['per_page'], $start, $data['keyword']);
+    $data['kelas'] = $this->am->getDataKelas($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_kelas', 'Tingkat Kelas', 'required');

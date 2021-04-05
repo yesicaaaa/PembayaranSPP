@@ -30,20 +30,10 @@ class Siswa extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('siswa', ['email' => $this->session->userdata('email')])->row_array(),
+      'history' => $this->sm->getHistoryPembayaran(),
       'title' => 'History Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
-
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/siswa/history_pembayaran';
-    $config['total_rows'] = $this->sm->getHistoryRows();
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['history'] = $this->sm->getHistoryPembayaran($config['per_page'], $start);
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_siswa/side-navbar', $data);

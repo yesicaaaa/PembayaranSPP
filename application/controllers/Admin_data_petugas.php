@@ -26,22 +26,8 @@ class Admin_data_petugas extends CI_Controller
     } else {
       $data['keyword'] = $this->session->userdata('keyword');
     }
-
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin/index';
-    $this->db->like('nama_petugas', $data['keyword']);
-    $this->db->from('petugas');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    //initialize
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['petugas'] = $this->am->getPetugas($config['per_page'], $start, $data['keyword']);
+    
+    $data['petugas'] = $this->am->getPetugas($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required');
@@ -78,6 +64,7 @@ class Admin_data_petugas extends CI_Controller
   {
     $id_petugas = $this->input->post('id_petugas');
     $row = $this->db->where('id_petugas', $id_petugas)->get('petugas')->row_array();
+
     echo json_encode($row);
   }
 
@@ -96,21 +83,7 @@ class Admin_data_petugas extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/index/';
-    $this->db->like('nama_petugas', $data['keyword']);
-    $this->db->from('petugas');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    //initialize
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['petugas'] = $this->am->getPetugas($config['per_page'], $start, $data['keyword']);
+    $data['petugas'] = $this->am->getPetugas($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required');

@@ -10,8 +10,7 @@
     <thead>
       <tr class="headcatatan">
         <th scope="col">#</th>
-        <th scope="col">Nama Petugas Baru</th>
-        <th scope="col">Nama Petugas Lama</th>
+        <th scope="col">Nama Petugas</th>
         <th scope="col">Email Baru</th>
         <th scope="col">Email Lama</th>
         <th scope="col">Telepon Baru</th>
@@ -28,7 +27,6 @@
       <?php foreach ($catatan as $ct) : ?>
         <tr class="bodycatatan">
           <th scope="row"><?= $i++ ?></th>
-          <td><?= $ct['nama_petugas_baru'] ?></td>
           <td><?= $ct['nama_petugas_lama'] ?></td>
           <td><?= $ct['email_baru'] ?></td>
           <td><?= $ct['email_lama'] ?></td>

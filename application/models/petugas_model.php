@@ -6,20 +6,12 @@ class Petugas_model extends CI_Model
   //MANAGEMENY TRANSAKSI PEMBAYARAN
   public function getDataSiswaSpp($keyword = null)
   {
-    if ($keyword != null) {
-      $sql = "SELECT `siswa`.*, `kelas`.* 
-              FROM `siswa`
-              JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
-              WHERE `siswa`.`nama` LIKE '%$keyword%'
-              ORDER BY `siswa`.`nama` ASC
-              ";
-    } else {
-      $sql = "SELECT `siswa`.*, `kelas`.* 
-              FROM `siswa`
-              JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
-              ORDER BY `siswa`.`nama` ASC
-              ";
-    }
+    $sql = "SELECT `siswa`.*, `kelas`.* 
+            FROM `siswa`
+            JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
+            WHERE `siswa`.`nama` LIKE '%$keyword%'
+            ORDER BY `siswa`.`nama` ASC
+            ";
 
     return $this->db->query($sql)->result_array();
   }
@@ -51,7 +43,7 @@ class Petugas_model extends CI_Model
     return $this->db->insert('pembayaran', $data);
   }
 
-  public function getDataHistory($limit, $start, $keyword = null)
+  public function getDataHistory($keyword = null)
   {
     $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
             FROM `pembayaran` 
@@ -59,7 +51,6 @@ class Petugas_model extends CI_Model
             JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
             WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
             ORDER BY `pembayaran`.`tgl_bayar` DESC
-            LIMIT $start, $limit
             ";
 
     return $this->db->query($sql)->result_array();

@@ -18,12 +18,11 @@ class admin_model extends CI_Model
     return $this->db->insert('petugas', $data);
   }
 
-  public function getPetugas($limit, $start, $keyword = null)
+  public function getPetugas($keyword = null)
   {
     $sql = "SELECT * FROM `petugas`
             WHERE `nama_petugas` LIKE '%$keyword%'
             ORDER BY `nama_petugas` ASC
-            LIMIT $start, $limit
             ";
 
     return $this->db->query($sql)->result_array();
@@ -50,7 +49,7 @@ class admin_model extends CI_Model
 
   //MANAGEMENT DATA SISWA
 
-  public function getDataSiswa($limit, $start, $keyword = null)
+  public function getDataSiswa($keyword = null)
   {
     $sql = "SELECT `siswa`.*, `kelas`.*, `spp`.*
             FROM `siswa` 
@@ -58,17 +57,6 @@ class admin_model extends CI_Model
             JOIN `spp` ON `siswa`.`id_spp` = `spp`.`id_spp`
             WHERE `siswa`.`nama` LIKE '%$keyword%'
             ORDER BY `siswa`.`nama` ASC
-            LIMIT $start, $limit
-          ";
-
-    return $this->db->query($sql)->result_array();
-  }
-
-  public function getDataPembayaranRow()
-  {
-    $sql = "SELECT `nisn`
-            FROM `siswa`
-            WHERE NOT EXISTS (SELECT `nisn` FROM `pembayaran` WHERE `pembayaran`.`nisn` = `siswa`.`nisn`)
           ";
 
     return $this->db->query($sql)->result_array();
@@ -107,8 +95,7 @@ class admin_model extends CI_Model
       'email' => htmlspecialchars($this->input->post('email')),
       'id_kelas'  => htmlspecialchars($this->input->post('id_kelas')),
       'alamat'  => htmlspecialchars($this->input->post('alamat')),
-      'no_telp' => htmlspecialchars($this->input->post('no_telp')),
-      'id_spp'  => htmlspecialchars($this->input->post('id_spp'))
+      'no_telp' => htmlspecialchars($this->input->post('no_telp'))
     ];
 
     $this->db->where('nisn', $this->input->post('nisn'));
@@ -117,12 +104,11 @@ class admin_model extends CI_Model
 
 
   //MANAGEMENT DATA KELAS
-  public function getDataKelas($limit, $start, $keyword = null)
+  public function getDataKelas($keyword = null)
   {
     $sql = "SELECT * FROM `kelas`
             WHERE `kompetensi_keahlian` LIKE '%$keyword%'
             ORDER BY `nama_kelas` ASC
-            LIMIT $start, $limit
             ";
 
     return $this->db->query($sql)->result_array();
@@ -156,12 +142,11 @@ class admin_model extends CI_Model
 
 
   //MANAGEMENT DATA SPP
-  public function getDataSpp($limit, $start, $keyword = null)
+  public function getDataSpp($keyword = null)
   {
     $sql = "SELECT * FROM `spp`
             WHERE `nominal` LIKE '%$keyword%'
             ORDER BY `tahun` DESC
-            LIMIT $start, $limit
             ";
 
     return $this->db->query($sql)->result_array();
@@ -238,7 +223,7 @@ class admin_model extends CI_Model
 
 
   //MANAGEMENT HISTORY PEMBAYARAN
-  public function getHistoryPembayaran($limit, $start, $keyword = null)
+  public function getHistoryPembayaran($keyword = null)
   {
     $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
             FROM `pembayaran`
@@ -246,30 +231,21 @@ class admin_model extends CI_Model
             JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
             WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
             ORDER BY  `pembayaran`.`tgl_bayar` DESC
-            LIMIT $start, $limit
             ";
 
     return $this->db->query($sql)->result_array();
   }
 
-  public function getHistoryRows()
-  {
-    $sql = "SELECT `pembayaran`.*, `siswa`.*, `petugas`.*
-            FROM `pembayaran`
-            JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
-            JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
-            ";
-
-    return $this->db->query($sql)->num_rows();
-  }
 
   //MANAGEMENT LAPORAN
-  public function checkPembayaran($nisn, $month){
+  public function checkPembayaran($nisn, $month, $year)
+  {
     $sql = "SELECT `siswa`.`nisn`, `pembayaran`.`bulan_dibayar`, `pembayaran`.`tahun_dibayar`
             FROM `siswa`
             JOIN `pembayaran` ON `siswa`.`nisn` = `pembayaran`.`nisn`
             WHERE `siswa`.`nisn` = '$nisn'
             AND `pembayaran`.`bulan_dibayar` = '$month'
+            AND `pembayaran`.`tahun_dibayar` = '$year'
             ";
 
     return $this->db->query($sql)->num_rows();
@@ -280,6 +256,17 @@ class admin_model extends CI_Model
     $sql = "SELECT * FROM `siswa`
             WHERE `nama` LIKE '%$keyword%'
             ORDER BY `nama` ASC
+            ";
+
+    return $this->db->query($sql)->result_array();
+  }
+
+
+  //MANAGEMENT LOG PETUGAS
+  public function getLogPetugas()
+  {
+    $sql = "SELECT * FROM `log_petugas`
+            ORDER BY `tgl_diubah` DESC
             ";
 
     return $this->db->query($sql)->result_array();

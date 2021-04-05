@@ -11,15 +11,15 @@
   <div class="divider"></div>
   <div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('petugas/my_profile'); ?>"><i class="fa fa-fw fa-users"></i><span>Profile Saya</span></a></li>
+      <li><a href="<?= base_url('petugas/my_profile'); ?>"><i class="fa fa-fw fa-user"></i><span>Profile Saya</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('petugas/transaksi_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>Transaksi Pembayaran</span></a></li>
+      <li><a href="<?= base_url('petugas/transaksi_pembayaran'); ?>"><i class="fa fa-fw fa-calculator"></i><span>Transaksi Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="<?= base_url('petugas/history_pembayaran'); ?>"><i class="fa fa-fw fa-users"></i><span>History Pembayaran</span></a></li>
+      <li><a href="<?= base_url('petugas/history_pembayaran'); ?>"><i class="fa fa-fw fa-tasks"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
     <div class="divider div-end"></div>

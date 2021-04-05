@@ -18,7 +18,6 @@ class Admin_data_siswa extends CI_Controller
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'kelas' => $this->db->get('kelas')->result_array(),
       'spp'   => $this->db->get('spp')->result_array(),
-      'pembayaran'  => $this->am->getDataPembayaranRow(),
       'title' => 'Data Siswa | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -30,20 +29,7 @@ class Admin_data_siswa extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_siswa/index/';
-    $this->db->like('nama', $data['keyword']);
-    $this->db->from('siswa');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['siswa'] = $this->am->getDataSiswa($config['per_page'], $start, $data['keyword']);
+    $data['siswa'] = $this->am->getDataSiswa($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nisn', 'NISN', 'required|max_length[10]|trim');
@@ -102,20 +88,7 @@ class Admin_data_siswa extends CI_Controller
       $data['keyword'] = $this->session->userdata('keyword');
     }
 
-    //pagination
-    $config['base_url'] = 'http://localhost/pembayaranSPP/admin_data_siswa/index/';
-    $this->db->like('nama', $data['keyword']);
-    $this->db->from('siswa');
-    $config['total_rows'] = $this->db->count_all_results();
-    $data['total_rows'] = $config['total_rows'];
-    $config['per_page'] = 5;
-
-    $this->pagination->initialize($config);
-
-    $data['start'] = $this->uri->segment(3);
-
-    $start = ($data['start'] > 0) ? $data['start'] : 0;
-    $data['siswa'] = $this->am->getDataSiswa($config['per_page'], $start, $data['keyword']);
+    $data['siswa'] = $this->am->getDataSiswa($data['keyword']);
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nisn', 'NISN', 'required|max_length[10]|trim');
@@ -124,7 +97,6 @@ class Admin_data_siswa extends CI_Controller
       $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
       $this->form_validation->set_rules('id_kelas', 'Kelas', 'required');
       $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-      $this->form_validation->set_rules('id_spp', 'SPP', 'required');
     }
 
     if ($this->form_validation->run() == false) {
@@ -135,7 +107,7 @@ class Admin_data_siswa extends CI_Controller
     } else {
       $this->am->editDataSiswa();
       $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Siswa berhasil ditambahkan!</div>');
+          role="alert">Data siswa berhasil diubah!</div>');
       redirect('admin_data_siswa');
     }
   }

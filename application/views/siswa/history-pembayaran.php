@@ -27,9 +27,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i  = 1; ?>
       <?php foreach ($history as $ht) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++; ?></th>
           <td><?= $ht['bulan_dibayar'] ?></td>
           <td><?= $ht['tahun_dibayar'] ?></td>
           <td><?= $ht['jumlah_bayar'] ?></td>
@@ -40,6 +41,5 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 </div>

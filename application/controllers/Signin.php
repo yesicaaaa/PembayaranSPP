@@ -3,11 +3,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Signin extends CI_Controller
 {
-  public function __construct()
-  {
-    parent::__construct();
-    $this->load->model('signin_model', 'sm');
-  }
   public function signin_petugas()
   {
     $data = [
@@ -156,7 +151,7 @@ class Signin extends CI_Controller
 
     $this->email->initialize($config);
 
-    $this->email->from('bdg.smkbpi@gmail.com', 'SMK BPI Bandung');
+    $this->email->from('dalhaneul.s@gmail.com', 'SMK BPI Bandung');
     $this->email->to($this->input->post('email'));
 
     $this->email->subject('Reset Password');

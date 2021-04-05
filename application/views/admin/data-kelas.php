@@ -24,7 +24,13 @@
   <?= form_error('kompetensi_keahlian', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahKelas"><i class="fa fa-fw fa-user-plus"></i> Tambah Kelas Baru</a>
-  <h6>Hasil : <?= $total_rows ?></h6>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua kelas
+  <?php else : ?>
+  kelas <?= $this->session->keyword; ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -44,9 +50,10 @@
           </td>
         </tr>
       <?php endif; ?>
+      <?php $i = 1; ?>
       <?php foreach ($kelas as $kl) : ?>
         <tr>
-          <th scope="row"><?= ++$start ?></th>
+          <th scope="row"><?= $i++ ?></th>
           <td><?= $kl['nama_kelas'] ?></td>
           <td><?= $kl['kompetensi_keahlian'] ?></td>
           <td>
@@ -57,7 +64,6 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 
 

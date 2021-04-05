@@ -20,7 +20,7 @@
       <a href="<?= base_url(); ?>admin/refreshLP"><img class="refreshLaporan" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
-  <h5 class="laporanbulan">Laporan untuk <span>
+  <h5 class="laporanbulan">Pencarian untuk <span>
       <?php if (!$this->session->keyword) : ?>
         semua siswa
       <?php else :  ?>
@@ -52,6 +52,5 @@
       <?php endforeach; ?>
     </tbody>
   </table>
-  <?= $this->pagination->create_links(); ?>
 </div>
 </div>

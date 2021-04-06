@@ -58,7 +58,7 @@ class Admin_data_spp extends CI_Controller
       redirect('admin_data_spp');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-            role="alert">Data SPP tidak bisa dihapus!</div>');
+            role="alert">Data SPP terpakai! Tidak bisa dihapus.</div>');
       redirect('admin_data_spp');
     }
   }

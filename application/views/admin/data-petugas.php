@@ -9,7 +9,7 @@
     <div class="col-md-4 searchbar">
       <form action="<?= base_url('admin_data_petugas') ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari Nama Petugas..." name="keyword" autocomplete="off" autofocus>
+          <input type="text" class="form-control" placeholder="Cari..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
             <input class="btn btn-info" type="submit" name="submit">
           </div>
@@ -96,7 +96,7 @@
           </div>
           <div class="form-group">
             <select name="level" id="level" class="form-control">
-              <option>Select Menu</option>
+              <option>Pilih Posisi</option>
               <?php $level = array('Admin', 'Petugas');
               for ($lvl = 0; $lvl < 2; $lvl++) : ?>
                 <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>
@@ -147,7 +147,7 @@
           </div>
           <div class="form-group">
             <select name="level" id="levelEdit" class="form-control">
-              <option>Select Menu</option>
+              <option>Pilih Posisi</option>
               <?php $level = array('Admin', 'Petugas');
               for ($lvl = 0; $lvl < 2; $lvl++) : ?>
                 <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>

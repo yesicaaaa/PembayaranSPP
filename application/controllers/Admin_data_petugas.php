@@ -11,7 +11,7 @@ class Admin_data_petugas extends CI_Controller
 
     $this->session->unset_userdata('keyword');
   }
-  
+
   public function index()
   {
     $data  = [
@@ -26,7 +26,7 @@ class Admin_data_petugas extends CI_Controller
     } else {
       $data['keyword'] = $this->session->userdata('keyword');
     }
-    
+
     $data['petugas'] = $this->am->getPetugas($data['keyword']);
 
     if (!$this->input->post('submit')) {

@@ -15,8 +15,8 @@
         <th scope="col">Email Lama</th>
         <th scope="col">Telepon Baru</th>
         <th scope="col">Telepon Lama</th>
-        <th scope="col">Alamat Baru</th>
-        <th scope="col">Alamat Lama</th>
+        <!-- <th scope="col">Alamat Baru</th>
+        <th scope="col">Alamat Lama</th> -->
         <th scope="col">Posisi Baru</th>
         <th scope="col">Posisi Lama</th>
         <th scope="col">Tanggal Diubah</th>
@@ -32,8 +32,8 @@
           <td><?= $ct['email_lama'] ?></td>
           <td><?= $ct['no_telp_baru'] ?></td>
           <td><?= $ct['no_telp_lama'] ?></td>
-          <td><?= $ct['alamat_baru'] ?></td>
-          <td><?= $ct['alamat_lama'] ?></td>
+          <!-- <td><?= $ct['alamat_baru'] ?></td>
+          <td><?= $ct['alamat_lama'] ?></td> -->
           <td><?= $ct['posisi_baru'] ?></td>
           <td><?= $ct['posisi_lama'] ?></td>
           <td><?= $ct['tgl_diubah'] ?></td>

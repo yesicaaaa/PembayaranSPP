@@ -22,6 +22,10 @@ class admin_model extends CI_Model
   {
     $sql = "SELECT * FROM `petugas`
             WHERE `nama_petugas` LIKE '%$keyword%'
+            OR `no_telp` LIKE '%$keyword%'
+            OR `email` LIKE '%$keyword%'
+            OR `level` LIKE '%$keyword%'
+            OR `alamat` LIKE '%$keyword%'
             ORDER BY `nama_petugas` ASC
             ";
 
@@ -56,6 +60,13 @@ class admin_model extends CI_Model
             JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
             JOIN `spp` ON `siswa`.`id_spp` = `spp`.`id_spp`
             WHERE `siswa`.`nama` LIKE '%$keyword%'
+            OR `siswa`.`nisn` LIKE '%$keyword%'
+            OR `siswa`.`nis` LIKE '%$keyword%'
+            OR `siswa`.`email` LIKE '%$keyword%'
+            OR `siswa`.`no_telp` LIKE '%$keyword%'
+            OR `siswa`.`alamat` LIKE '%$keyword%'
+            OR `kelas`.`kompetensi_keahlian` LIKE '%$keyword%'
+            OR `kelas`.`nama_kelas` LIKE '%$keyword%'
             ORDER BY `siswa`.`nama` ASC
           ";
 
@@ -108,6 +119,7 @@ class admin_model extends CI_Model
   {
     $sql = "SELECT * FROM `kelas`
             WHERE `kompetensi_keahlian` LIKE '%$keyword%'
+            OR `nama_kelas` LIKE '%$keyword%'
             ORDER BY `nama_kelas` ASC
             ";
 
@@ -146,6 +158,7 @@ class admin_model extends CI_Model
   {
     $sql = "SELECT * FROM `spp`
             WHERE `nominal` LIKE '%$keyword%'
+            OR `tahun` LIKE '%$keyword%'
             ORDER BY `tahun` DESC
             ";
 
@@ -185,6 +198,9 @@ class admin_model extends CI_Model
             FROM `siswa`
             JOIN `kelas` ON `siswa`.`id_kelas` = `kelas`.`id_kelas`
             WHERE `siswa`.`nama` LIKE '%$keyword%'
+            OR `siswa`.`nisn` LIKE '%$keyword%'
+            OR `kelas`.`nama_kelas` LIKE '%$keyword%'
+            OR `kelas`.`kompetensi_keahlian` LIKE '%$keyword%'
             ORDER BY `siswa`.`nama` ASC
             ";
 
@@ -230,6 +246,12 @@ class admin_model extends CI_Model
             JOIN `siswa` ON `pembayaran`.`nisn` = `siswa`.`nisn`
             JOIN `petugas` ON `pembayaran`.`id_petugas` = `petugas`.`id_petugas`
             WHERE `pembayaran`.`nisn` LIKE '%$keyword%'
+            OR `siswa`.`nama` LIKE '%$keyword%'
+            OR `pembayaran`.`bulan_dibayar` LIKE '%$keyword%'
+            OR `pembayaran`.`tahun_dibayar` LIKE '%$keyword%'
+            OR `pembayaran`.`jumlah_bayar` LIKE '%$keyword%'
+            OR `petugas`.`nama_petugas` LIKE '%$keyword%'
+            OR `pembayaran`.`tgl_bayar` LIKE '%$keyword%'
             ORDER BY  `pembayaran`.`tgl_bayar` DESC
             ";
 
@@ -255,6 +277,7 @@ class admin_model extends CI_Model
   {
     $sql = "SELECT * FROM `siswa`
             WHERE `nama` LIKE '%$keyword%'
+            OR `nisn` LIKE '%$keyword%'
             ORDER BY `nama` ASC
             ";
 

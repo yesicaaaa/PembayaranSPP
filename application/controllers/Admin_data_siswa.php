@@ -49,10 +49,19 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('admin/data-siswa', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->addDataSiswa();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Siswa berhasil ditambahkan!</div>');
-      redirect('admin_data_siswa');
+      $nisn = $this->input->post('nisn');
+      $nisnsiswa = $this->db->get_where('siswa', ['nisn' => $nisn])->num_rows();
+
+      if ($nisnsiswa > 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Tambah siswa gagal! NISN siswa sudah terdaftar.</div>');
+        redirect('admin_data_siswa');
+      } else {
+        $this->am->addDataSiswa();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Siswa berhasil ditambahkan!</div>');
+        redirect('admin_data_siswa');
+      }
     }
   }
 
@@ -105,10 +114,19 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('admin/data-siswa', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->editDataSiswa();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Data siswa berhasil diubah!</div>');
-      redirect('admin_data_siswa');
+      $nisn = $this->input->post('nisn');
+      $nisnsiswa = $this->db->get_where('siswa',['nisn' => $nisn])->num_rows();
+
+      if($nisnsiswa > 0){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+          role="alert">Edit data gagal! NISN sudah terdaftar.</div>');
+        redirect('admin_data_siswa');
+      } else {
+        $this->am->editDataSiswa();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Data siswa berhasil diubah!</div>');
+        redirect('admin_data_siswa');
+      }
     }
   }
 

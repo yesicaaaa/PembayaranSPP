@@ -59,10 +59,20 @@ class Admin extends CI_Controller
             role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('admin/transaksi_pembayaran');
       } else {
-        $this->am->transaksiPembayaran();
-        $this->session->set_flashdata('message', '<div class="alert alert-success" 
-            role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-        redirect('admin/transaksi_pembayaran');
+        $spp = $this->input->post('id_spp');
+        $jmlbayar = $this->input->post('jumlah_bayar');
+        $nominalspp = $this->db->get_where('spp', ['id_spp' => $spp])->row_array();
+
+        if($nominalspp['nominal'] == $jmlbayar){
+          $this->am->transaksiPembayaran();
+          $this->session->set_flashdata('message', '<div class="alert alert-success" 
+              role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
+          redirect('admin/transaksi_pembayaran');
+        } else {
+          $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+              role="alert">Transaksi gagal! Nominal yang dimasukkan kurang.</div>');
+          redirect('admin/transaksi_pembayaran');
+        }
       }
     }
   }

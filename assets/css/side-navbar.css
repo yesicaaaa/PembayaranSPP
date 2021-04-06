@@ -34,6 +34,7 @@ body{
 	text-align: center;
 	color: white;
 	font-size: 20px;
+	margin-top: -17px;
 	letter-spacing: 6px;
 }
 
@@ -129,7 +130,7 @@ body{
 }
 
 .div-end{
-	margin-top: 120%;
+	margin-top: 126%;
 }
 
 .div-end-siswa {
@@ -153,7 +154,7 @@ body{
 }
 
 .div-log {
-	margin-top: 39%;
+	margin-top: 47%;
 }
 
 .laporanbulan span{

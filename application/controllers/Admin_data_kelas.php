@@ -58,7 +58,7 @@ class Admin_data_kelas extends CI_Controller
       redirect('admin_data_kelas');
     } else {
       $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-            role="alert">Kelas tidak bisa dihapus!</div>');
+            role="alert">Kelas terpakai! Tidak bisa dihapus.</div>');
       redirect('admin_data_kelas');
     }
   }

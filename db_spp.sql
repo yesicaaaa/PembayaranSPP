@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 05, 2021 at 06:22 AM
+-- Generation Time: Apr 06, 2021 at 12:16 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -45,7 +45,8 @@ INSERT INTO `kelas` (`id_kelas`, `nama_kelas`, `kompetensi_keahlian`) VALUES
 (9, 'XII', 'TKJ'),
 (11, 'X', 'RPL'),
 (12, 'XII', 'RPL'),
-(13, 'XI', 'RPL');
+(13, 'XI', 'RPL'),
+(15, 'XII', 'OTKP');
 
 -- --------------------------------------------------------
 
@@ -83,7 +84,8 @@ INSERT INTO `log_petugas` (`id_log_petugas`, `id_petugas`, `nama_petugas_baru`, 
 (7, 1, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn04@gmail.com', 'yesicaagrn04@gmail.com', '08945434800', '08945434811', 'Jl. Ciparay Tengah', 'Jl. Ciparay Tengah', 'Admin', 'Admin', '2021-04-05'),
 (8, 1, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn04@gmail.com', 'yesicaagrn04@gmail.com', '08945434811', '08945434800', 'Jl. Ciparay Tengah', 'Jl. Ciparay Tengah', 'Admin', 'Admin', '2021-04-05'),
 (9, 2, 'Ajeng Maelani', 'Ajeng Maelani', 'ajeng@gmail.com', 'ajeng@gmail.com', '08945432323', '08945432333', 'Jl. Cibaduyut', 'Jl. Cibaduyut', 'Petugas', 'Petugas', '2021-04-05'),
-(10, 2, 'Ajeng Maelani', 'Ajeng Maelani', 'ajeng@gmail.com', 'ajeng@gmail.com', '08945432333', '08945432300', 'Jl. Cibaduyut', 'Jl. Cibaduyut', 'Petugas', 'Petugas', '2021-04-05');
+(10, 2, 'Ajeng Maelani', 'Ajeng Maelani', 'ajeng@gmail.com', 'ajeng@gmail.com', '08945432333', '08945432300', 'Jl. Cibaduyut', 'Jl. Cibaduyut', 'Petugas', 'Petugas', '2021-04-05'),
+(11, 9, 'baruuuuu', 'baru', 'yesic@gmail.com', 'yesica@gmail.com', '08945434545', '089400000', 'Bandung', 'Bandungg', 'Admin', 'Petugas', '2021-04-06');
 
 -- --------------------------------------------------------
 
@@ -108,7 +110,16 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `bulan_dibayar`, `tahun_dibayar`, `id_spp`, `jumlah_bayar`, `status`) VALUES
-(2, 1, '0085943323', '2021-04-05', 'Februari', '2021', 10, 405000, 'Lunas');
+(2, 1, '0085943323', '2021-04-05', 'Februari', '2021', 10, 405000, 'Lunas'),
+(5, 1, '0078542283', '2021-04-06', 'April', '2021', 10, 405000, 'Lunas'),
+(11, 1, '0085942232', '2021-04-06', 'Januari', '2021', 10, 405000, 'Lunas'),
+(12, 1, '0075894388', '2021-04-06', 'Maret', '2021', 10, 405000, 'Lunas'),
+(13, 1, '0043542387', '2021-04-06', 'April', '2021', 1, 800000, 'Lunas'),
+(14, 1, '0085749934', '2021-04-06', 'April', '2021', 10, 405000, 'Lunas'),
+(15, 1, '0085749934', '2021-04-06', 'Januari', '2021', 10, 405000, 'Lunas'),
+(16, 1, '0085749934', '2021-04-06', 'Juni', '2021', 10, 405000, 'Lunas'),
+(17, 2, '0085749934', '2021-04-06', 'November', '2021', 10, 405000, 'Lunas'),
+(18, 2, '0078542283', '2021-04-06', 'Juli', '2021', 10, 405000, 'Lunas');
 
 -- --------------------------------------------------------
 
@@ -133,7 +144,8 @@ CREATE TABLE `petugas` (
 
 INSERT INTO `petugas` (`id_petugas`, `email`, `password`, `nama_petugas`, `gambar`, `no_telp`, `alamat`, `level`) VALUES
 (1, 'yesicaagrn04@gmail.com', '$2y$10$gws4/i6b.E0/pcmJFB1mIenkGMddMpvBeqqGZ6hS2WXYehVa1L3Wu', 'Yesica Anggraeni', 'default.png', '08945434800', 'Jl. Ciparay Tengah', 'Admin'),
-(2, 'ajeng@gmail.com', '$2y$10$Z145QqMT90VLwoEWLmN0MuChS9Hv1yNh4bfFfpGQk2qOlWGLFQPGe', 'Ajeng Maelani', 'default.png', '08945432300', 'Jl. Cibaduyut', 'Petugas');
+(2, 'ajeng@gmail.com', '$2y$10$Z145QqMT90VLwoEWLmN0MuChS9Hv1yNh4bfFfpGQk2qOlWGLFQPGe', 'Ajeng Maelani', 'default.png', '08945432300', 'Jl. Cibaduyut', 'Petugas'),
+(8, 'yesicaagrn654@gmail.com', '$2y$10$e0vh.mwbYMjjdNVIgRDp5uuLu.Vm/gWcvvdNKkAikP5iQv0pKecF6', 'Celine Natalie', 'default.png', '085844739299', 'Bandung', 'Petugas');
 
 --
 -- Triggers `petugas`
@@ -185,7 +197,6 @@ CREATE TABLE `siswa` (
 INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `email`, `gambar`, `id_kelas`, `alamat`, `no_telp`, `id_spp`, `password`) VALUES
 ('0032475543', '1819.10007', 'Pebi Riyani', 'pebi@gmail.com', 'default.png', 5, 'Bandung', '089475893485', 10, '$2y$10$QBpoeQ5PbuSEg7qKCX7FpOikNzPwPgDoUv05YDdd6JdmpP08ZZura'),
 ('0043542387', '1718.10032', 'Riana Damayanti', 'riana@gmail.com', 'default.png', 1, 'Jl. Cibaduyut Raya', '08945434544', 1, '$2y$10$htpl8NQ6EYWpXghXGZ.HKuUfYZfxoxJaWdwzWs/OWKzOhnMSHvfey'),
-('0047837483', '1819.10004', 'Alif Haryanto Sutendar', 'alif@gmail.com', 'default.png', 12, 'Bandung', '089587548392', 10, '$2y$10$qFIZKBmBmWTS5m5gwX0BmepYpLe0z.WkOLemLQKWjdcIZeNtNsEe6'),
 ('0075894388', '1819.10014', 'Nauval Abyan S', 'nauval@gmail.com', 'default.png', 13, 'Bandung', '089578443922', 10, '$2y$10$0IxFqSOBwn1Z5YVZ/4LHKu5VqmSZvX6HG0UTbCTAYOGYyEgpxtSZa'),
 ('0078542283', '1819.10032', 'Kirani Rizkya Desta', 'kirani@gmail.com', 'default.png', 6, 'Bandung', '085574832238', 10, '$2y$10$QaiX5c98T4BOwz77WBhqf.IDmEuJLmuIcluT27ufsdA8hSrviq0UW'),
 ('0085749934', '1819.10011', 'Alma Damayanti', 'alma@gmail.com', 'default.png', 5, 'Bandung', '085364738823', 10, '$2y$10$L6RRjP7/NsncTyFA8kr6A.71Z5J1RHOebA/zJkWf14H1TKZajWS36'),
@@ -209,10 +220,8 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(1, 2017, 800000),
-(10, 2021, 405000),
-(13, 2010, 200000),
-(14, 2020, 300000);
+(1, 2021, 800000),
+(10, 2021, 405000);
 
 -- --------------------------------------------------------
 
@@ -294,31 +303,31 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `log_petugas`
 --
 ALTER TABLE `log_petugas`
-  MODIFY `id_log_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_log_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `user_token`

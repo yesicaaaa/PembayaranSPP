@@ -9,7 +9,7 @@
     <div class="col-md-4 searchbar">
       <form action="<?= base_url('admin/history_pembayaran') ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari NISN siswa..." name="keyword" autocomplete="off" autofocus>
+          <input type="text" class="form-control" placeholder="Cari..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
             <input class="btn btn-info" type="submit" name="submit">
           </div>
@@ -22,7 +22,7 @@
   </div>
   <h5 class="laporanbulan">Pencarian untuk <span>
   <?php if(!$this->session->keyword) : ?>
-  semua NISN
+  semua siswa
   <?php else : ?>
   <?= $this->session->keyword ?>
   <?php endif; ?>

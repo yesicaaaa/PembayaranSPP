@@ -9,7 +9,7 @@
     <div class="col-md-4 searchbar">
       <form action="<?= base_url('petugas/transaksi_pembayaran') ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Cari Nama Siswa..." name="keyword" autocomplete="off" autofocus>
+          <input type="text" class="form-control" placeholder="Cari..." name="keyword" autocomplete="off" autofocus>
           <div class="input-group-append">
             <input class="btn btn-info" type="submit" name="submit">
           </div>
@@ -29,6 +29,13 @@
   <?= form_error('id_spp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= form_error('jumlah_bayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua siswa 
+  <?php else : ?>
+  <?= $this->session->keyword ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>

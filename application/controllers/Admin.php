@@ -16,10 +16,7 @@ class Admin extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'spp'   => $this->db->get('spp')->result_array(),
-      'kelas' => $this->db->get('kelas')->result_array(),
       'petugas' => $this->db->get('petugas')->result_array(),
-      'pembayaran'  => $this->db->get('pembayaran')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -63,7 +60,7 @@ class Admin extends CI_Controller
         $jmlbayar = $this->input->post('jumlah_bayar');
         $nominalspp = $this->db->get_where('spp', ['id_spp' => $spp])->row_array();
 
-        if($nominalspp['nominal'] == $jmlbayar){
+        if ($nominalspp['nominal'] == $jmlbayar) {
           $this->am->transaksiPembayaran();
           $this->session->set_flashdata('message', '<div class="alert alert-success" 
               role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
@@ -157,9 +154,9 @@ class Admin extends CI_Controller
       $bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
       $jml_bulan = count($bulan);
       for ($i = 0; $i < $jml_bulan; $i++) {
-        for($tahun = 2021; $tahun<=date('Y'); $tahun++){
+        for ($tahun = 2021; $tahun <= date('Y'); $tahun++) {
           $checkPembayaran  = $this->am->checkPembayaran($s['nisn'], $bulan[$i], $tahun);
-          if($checkPembayaran == 1){
+          if ($checkPembayaran == 1) {
             $status = 'Lunas';
           } else {
             $status = 'Belum Lunas';
@@ -194,14 +191,28 @@ class Admin extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'catatan' => $this->am->getLogPetugas(),
       'title' => 'Catatan Database | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
+
+    if($this->input->post('submit')){
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {  
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    $data['catatan'] = $this->am->getLogPetugas($data['keyword']);
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_admin/side-navbar', $data);
     $this->load->view('admin/catatan-database', $data);
     $this->load->view('templates/footer');
+  }
+
+  public function refreshLog()
+  {
+    $this->session->unset_userdata('keyword');
+    redirect('admin/catatan_database');
   }
 }

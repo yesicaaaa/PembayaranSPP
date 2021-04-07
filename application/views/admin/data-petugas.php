@@ -29,12 +29,12 @@
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahPetugas"><i class="fa fa-fw fa-user-plus"></i> Tambah Petugas</a>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua petugas
-  <?php else : ?>
-  <?= $this->session->keyword ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua petugas
+      <?php else : ?>
+        <?= $this->session->keyword ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -96,7 +96,7 @@
           </div>
           <div class="form-group">
             <select name="level" id="level" class="form-control">
-              <option>Pilih Posisi</option>
+              <option value=''>Pilih Posisi</option>
               <?php $level = array('Admin', 'Petugas');
               for ($lvl = 0; $lvl < 2; $lvl++) : ?>
                 <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>
@@ -147,7 +147,7 @@
           </div>
           <div class="form-group">
             <select name="level" id="levelEdit" class="form-control">
-              <option>Pilih Posisi</option>
+              <option value=''>Pilih Posisi</option>
               <?php $level = array('Admin', 'Petugas');
               for ($lvl = 0; $lvl < 2; $lvl++) : ?>
                 <option value="<?= $level[$lvl]; ?>"><?= $level[$lvl]; ?></option>

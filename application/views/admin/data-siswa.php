@@ -32,12 +32,12 @@
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahSiswa"><i class="fa fa-fw fa-user-plus"></i> Tambah Siswa Baru</a>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua siswa 
-  <?php else : ?>
-  <?= $this->session->keyword ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua siswa
+      <?php else : ?>
+        <?= $this->session->keyword ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -112,7 +112,7 @@
           </div>
           <div class="form-group">
             <select name="id_kelas" id="kelas" class="form-control">
-              <option>Pilih Kelas</option>
+              <option value=''>Pilih Kelas</option>
               <?php foreach ($kelas as $kl) : ?>
                 <option value="<?= $kl['id_kelas']; ?>"><?= $kl['nama_kelas'] ?> <?= $kl['kompetensi_keahlian']; ?></option>
               <?php endforeach; ?>
@@ -126,7 +126,7 @@
           </div>
           <div class="form-group">
             <select name="id_spp" id="spp" class="form-control">
-              <option>Pilih SPP</option>
+              <option value=''>Pilih SPP</option>
               <?php foreach ($spp as $sp) : ?>
                 <option value="<?= $sp['id_spp']; ?>">Rp<?= number_format($sp['nominal'], 0, ',', '.'); ?></option>
               <?php endforeach; ?>
@@ -175,7 +175,7 @@
           </div>
           <div class="form-group">
             <select name="id_kelas" id="kelasEdit" class="form-control">
-              <option>Pilih Kelas</option>
+              <option value = ''>Pilih Kelas</option>
               <?php foreach ($kelas as $kl) : ?>
                 <option value="<?= $kl['id_kelas']; ?>"><?= $kl['nama_kelas'] ?> <?= $kl['kompetensi_keahlian']; ?></option>
               <?php endforeach; ?>

@@ -30,7 +30,7 @@ function is_logged_in_petugas()
     if ($nisn) {
       redirect('main/blocked_siswa');
     } else if($access['level'] != 'Petugas'){
-      redirect('main/blocked_petugas');
+      redirect('main/blocked_admin');
     }
   }
 }

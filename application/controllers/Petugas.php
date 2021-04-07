@@ -16,8 +16,6 @@ class Petugas extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'spp'   => $this->db->get('spp')->result_array(),
-      'kelas' => $this->db->get('kelas')->result_array(),
       'petugas' => $this->db->get('petugas')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'

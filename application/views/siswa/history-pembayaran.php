@@ -4,7 +4,28 @@
       <li class="breadcrumb-item"><a href="javascript:void(0)"><i class="fa fa-fw fa-user mr-2"></i>History Pembayaran</a></li>
     </ol>
   </nav>
-
+  <div class="row">
+    <div class="col-md-4 searchbar">
+      <form action="<?= base_url('siswa/history_pembayaran') ?>" method="POST">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Cari bulan dibayar..." name="keyword" autocomplete="off" autofocus>
+          <div class="input-group-append">
+            <input class="btn btn-info" type="submit" name="submit">
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <a href="<?= base_url(); ?>siswa/refresh"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
+    </div>
+  </div>
+  <h5 class="laporanbulan">Pencarian untuk <span>
+  <?php if(!$this->session->keyword) : ?>
+  semua bulan
+  <?php else : ?>
+  bulan <?= $this->session->keyword; ?>
+  <?php endif; ?>
+  </span></h5>
   <table class="table">
     <thead>
       <tr>

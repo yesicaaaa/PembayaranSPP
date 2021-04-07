@@ -49,12 +49,26 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('admin/data-siswa', $data);
       $this->load->view('templates/footer');
     } else {
-      $nisn = $this->input->post('nisn');
-      $nisnsiswa = $this->db->get_where('siswa', ['nisn' => $nisn])->num_rows();
+      $email = $this->input->post('email');
+      $cekemail = $this->db->get_where('siswa', ['email' => $email])->num_rows();
 
-      if ($nisnsiswa > 0) {
+      $nis = $this->input->post('nis');
+      $ceknis = $this->db->get_where('siswa', ['nis' => $nis])->num_rows();
+
+      $nisn = $this->input->post('nisn');
+      $ceknisn = $this->db->get_where('siswa', ['nisn' => $nisn])->num_rows();
+
+      if ($ceknisn > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Tambah siswa gagal! NISN siswa sudah terdaftar.</div>');
+        redirect('admin_data_siswa');
+      } else if ($cekemail > 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Tambah siswa gagal! Email siswa sudah terdaftar.</div>');
+        redirect('admin_data_siswa');
+      } else if ($ceknis > 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Tambah siswa gagal! NIS siswa sudah terdaftar.</div>');
         redirect('admin_data_siswa');
       } else {
         $this->am->addDataSiswa();
@@ -114,19 +128,10 @@ class Admin_data_siswa extends CI_Controller
       $this->load->view('admin/data-siswa', $data);
       $this->load->view('templates/footer');
     } else {
-      $nisn = $this->input->post('nisn');
-      $nisnsiswa = $this->db->get_where('siswa',['nisn' => $nisn])->num_rows();
-
-      if($nisnsiswa > 0){
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-          role="alert">Edit data gagal! NISN sudah terdaftar.</div>');
-        redirect('admin_data_siswa');
-      } else {
-        $this->am->editDataSiswa();
-        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+      $this->am->editDataSiswa();
+      $this->session->set_flashdata('message', '<div class="alert alert-success" 
             role="alert">Data siswa berhasil diubah!</div>');
-        redirect('admin_data_siswa');
-      }
+      redirect('admin_data_siswa');
     }
   }
 

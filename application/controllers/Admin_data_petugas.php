@@ -45,10 +45,19 @@ class Admin_data_petugas extends CI_Controller
       $this->load->view('admin/data-petugas', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->addPetugas();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Petugas baru berhasil ditambahkan!</div>');
-      redirect('admin_data_petugas');
+      $email = $this->input->post('email');
+      $cekemail = $this->db->get_where('petugas', ['email' => $email])->num_rows();
+
+      if ($cekemail > 0) {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+          role="alert">Tambah petugas gagal! Email sudah terpakai</div>');
+        redirect('admin_data_petugas');
+      } else {
+        $this->am->addPetugas();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Petugas baru berhasil ditambahkan!</div>');
+        redirect('admin_data_petugas');
+      }
     }
   }
 

@@ -178,7 +178,7 @@ class Signin extends CI_Controller
           $this->session->set_userdata('reset_email', $email);
           $this->change_password_petugas();
         } else {
-          $this->db->delete('user', ['email' => $email]);
+          $this->db->delete('petugas', ['email' => $email]);
           $this->db->delete('user_token', ['email' => $email]);
 
           $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Reset Password gagal! Token kadaluarsa!</div>');

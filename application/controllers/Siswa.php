@@ -30,10 +30,18 @@ class Siswa extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('siswa', ['email' => $this->session->userdata('email')])->row_array(),
-      'history' => $this->sm->getHistoryPembayaran(),
       'title' => 'History Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
+
+    if ($this->input->post('submit')) {
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    $data['history'] = $this->sm->getHistoryPembayaran($data['keyword']);
 
     $this->load->view('templates/header', $data);
     $this->load->view('templates_siswa/side-navbar', $data);

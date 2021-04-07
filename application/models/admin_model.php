@@ -34,7 +34,7 @@ class admin_model extends CI_Model
 
   public function deletePetugas($id)
   {
-    $this->db->delete('petugas', ['id_petugas' => $id]);
+    return $this->db->delete('petugas', ['id_petugas' => $id]);
   }
 
   public function editPetugas()
@@ -93,8 +93,7 @@ class admin_model extends CI_Model
 
   public function deleteSiswa($nisn)
   {
-    $this->db->delete('pembayaran', ['nisn' => $nisn]);
-    $this->db->delete('siswa', ['nisn' => $nisn]);
+    return $this->db->delete('siswa', ['nisn' => $nisn]);
   }
 
   public function editDataSiswa()
@@ -286,9 +285,17 @@ class admin_model extends CI_Model
 
 
   //MANAGEMENT LOG PETUGAS
-  public function getLogPetugas()
+  public function getLogPetugas($keyword = null)
   {
     $sql = "SELECT * FROM `log_petugas`
+            WHERE `nama_petugas_lama` LIKE '%$keyword%'
+            OR `email_baru` LIKE '%$keyword%'
+            OR `email_lama` LIKE '%$keyword%'
+            OR `no_telp_baru` LIKE '%$keyword%'
+            OR `no_telp_lama` LIKE '%$keyword%'
+            OR `posisi_baru` LIKE '%$keyword%'
+            OR `posisi_lama` LIKE '%$keyword%'
+            OR `tgl_diubah` LIKE '%$keyword%'
             ORDER BY `tgl_diubah` DESC
             ";
 

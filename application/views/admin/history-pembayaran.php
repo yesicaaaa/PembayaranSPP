@@ -21,12 +21,12 @@
     </div>
   </div>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua siswa
-  <?php else : ?>
-  <?= $this->session->keyword ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua siswa
+      <?php else : ?>
+        <?= $this->session->keyword ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>

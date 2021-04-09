@@ -89,7 +89,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('admin_data_petugas'); ?>" method="POST">
+      <form action="<?= base_url('admin_data_petugas'); ?>" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="form-group">
             <input type="text" class="form-control" id="nama_petugas" name="nama_petugas" placeholder="Nama Petugas">
@@ -107,10 +107,13 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Email">
           </div>
           <div class="form-group">
-            <input type="tel" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telepon">
+            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telepon" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
+          </div>
+          <div class="form-group">
+            <input type="file" class="form-control" id="gambar" name="gambar">
           </div>
           <div class="form-group">
             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
@@ -155,10 +158,13 @@
             </select>
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" id="emailEdit" name="email">
+            <input type="email" class="form-control" id="emailEditDisabled" name="email" disabled>
           </div>
           <div class="form-group">
-            <input type="tel" class="form-control" id="no_telpEdit" name="no_telp">
+            <input type="hidden" class="form-control" id="emailEdit" name="email">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="no_telpEdit" name="no_telp" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="alamatEdit" name="alamat">
@@ -188,6 +194,7 @@
         $('#id_petugasEdit').val(data.id_petugas),
           $('#nama_petugasEdit').val(data.nama_petugas),
           $('#levelEdit').val(data.level),
+          $('#emailEditDisabled').val(data.email),
           $('#emailEdit').val(data.email),
           $('#no_telpEdit').val(data.no_telp),
           $('#alamatEdit').val(data.alamat),

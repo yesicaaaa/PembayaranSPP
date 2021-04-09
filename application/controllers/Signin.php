@@ -31,6 +31,7 @@ class Signin extends CI_Controller
     if ($user) {
       if (password_verify($password, $user['password'])) {
         $data = [
+          'id_petugas' => $user['id_petugas'],
           'email' => $user['email'],
           'level' => $user['level'],
           'nama'  => $user['nama_petugas'],

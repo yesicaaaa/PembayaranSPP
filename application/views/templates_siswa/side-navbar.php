@@ -2,12 +2,13 @@
 <nav class="navbar sticky-top bg-nav">
   <a class="navbar-brand">SMK BPI Bandung</a>
   <span class="user-name petugas-name"><?= $this->session->nama; ?></span>
-  <img class="img-circle img-petugas" src="<?= base_url() ?>assets/img/<?= $this->session->gambar; ?>">
+  <img class="img-circle img-petugas" src="<?= base_url() ?>assets/userImage/<?= $this->session->gambar; ?>">
 </nav>
 <!-- end navbar -->
 <!-- sidebar -->
 <div class="sidenav">
   <div>
+    <div class="divider div-siswa"></div>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url('siswa/index'); ?>"><i class="fa fa-fw fa-user"></i><span>Profile Saya</span></a></li>
     </ul>

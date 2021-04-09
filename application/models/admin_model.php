@@ -9,7 +9,7 @@ class admin_model extends CI_Model
       'email' => htmlspecialchars($this->input->post('email')),
       'password'  => htmlspecialchars(password_hash($this->input->post('password1'), PASSWORD_DEFAULT)),
       'nama_petugas'  => htmlspecialchars($this->input->post('nama_petugas')),
-      'gambar' => 'default.png',
+      'gambar' => $this->_uploadImagePetugas(),
       'no_telp' => htmlspecialchars($this->input->post('no_telp')),
       'alamat'  => htmlspecialchars($this->input->post('alamat')),
       'level' => htmlspecialchars($this->input->post('level'))
@@ -32,9 +32,10 @@ class admin_model extends CI_Model
     return $this->db->query($sql)->result_array();
   }
 
-  public function deletePetugas($id)
+  public function deletePetugas($id_petugas)
   {
-    return $this->db->delete('petugas', ['id_petugas' => $id]);
+    $this->_deleteImagePetugas($id_petugas);
+    return $this->db->delete('petugas', ['id_petugas' => $id_petugas]);
   }
 
   public function editPetugas()
@@ -49,6 +50,34 @@ class admin_model extends CI_Model
 
     $this->db->where('id_petugas', $this->input->post('id_petugas'));
     $this->db->update('petugas', $data);
+  }
+
+  private function _uploadImagePetugas()
+  {
+    $config = [
+      'upload_path' => './assets/userImage/',
+      'allowed_types' => 'jpg|png',
+      'file_name' => $this->input->post('nama_petugas'),
+      'overwrite' => true,
+      'max_size'  => 1024
+    ];
+
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('gambar')) {
+      return $this->upload->data('file_name');
+    } else {
+      return 'default.png';
+    }
+  }
+
+  private function _deleteImagePetugas($id_petugas)
+  {
+    $userImage = $this->db->get_where('petugas', ['id_petugas' => $id_petugas])->row_array();
+    if ($userImage['gambar'] != 'default.png') {
+      $filename = explode('.', $userImage['gambar'])[0];
+      return array_map('unlink', glob(FCPATH . "assets/userImage/$filename.*"));
+    }
   }
 
   //MANAGEMENT DATA SISWA
@@ -80,7 +109,7 @@ class admin_model extends CI_Model
       'nis'   => htmlspecialchars($this->input->post('nis')),
       'nama'  => htmlspecialchars($this->input->post('nama')),
       'email' => htmlspecialchars($this->input->post('email')),
-      'gambar'  => 'default.png',
+      'gambar'  => $this->_uploadImageSiswa(),
       'id_kelas'  => htmlspecialchars($this->input->post('id_kelas')),
       'alamat'  => htmlspecialchars($this->input->post('alamat')),
       'no_telp' => htmlspecialchars($this->input->post('no_telp')),
@@ -93,16 +122,15 @@ class admin_model extends CI_Model
 
   public function deleteSiswa($nisn)
   {
+    $this->_deleteImageSiswa($nisn);
     return $this->db->delete('siswa', ['nisn' => $nisn]);
   }
 
   public function editDataSiswa()
   {
     $data = [
-      'nisn'  => htmlspecialchars($this->input->post('nisn')),
       'nis'   => htmlspecialchars($this->input->post('nis')),
       'nama'  => htmlspecialchars($this->input->post('nama')),
-      'email' => htmlspecialchars($this->input->post('email')),
       'id_kelas'  => htmlspecialchars($this->input->post('id_kelas')),
       'alamat'  => htmlspecialchars($this->input->post('alamat')),
       'no_telp' => htmlspecialchars($this->input->post('no_telp'))
@@ -111,6 +139,35 @@ class admin_model extends CI_Model
     $this->db->where('nisn', $this->input->post('nisn'));
     $this->db->update('siswa', $data);
   }
+
+  private function _uploadImageSiswa()
+  {
+    $config = [
+      'upload_path' => './assets/userImage/',
+      'allowed_types' => 'jpg|png',
+      'file_name' => $this->input->post('nama'),
+      'overwrite' => true,
+      'max_size'  => 1024
+    ];
+
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('gambar')) {
+      return $this->upload->data('file_name');
+    } else {
+      return 'default.png';
+    }
+  }
+
+  private function _deleteImageSiswa($nisn)
+  {
+    $userImage = $this->db->get_where('siswa', ['nisn' => $nisn])->row_array();
+    if ($userImage['gambar'] != 'default.png') {
+      $filename = explode('.', $userImage['gambar'])[0];
+      return array_map('unlink', glob(FCPATH . "assets/userImage/$filename.*"));
+    }
+  }
+
 
 
   //MANAGEMENT DATA KELAS
@@ -270,17 +327,6 @@ class admin_model extends CI_Model
             ";
 
     return $this->db->query($sql)->num_rows();
-  }
-
-  public function getSiswaLaporan($keyword = null)
-  {
-    $sql = "SELECT * FROM `siswa`
-            WHERE `nama` LIKE '%$keyword%'
-            OR `nisn` LIKE '%$keyword%'
-            ORDER BY `nama` ASC
-            ";
-
-    return $this->db->query($sql)->result_array();
   }
 
 

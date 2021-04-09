@@ -40,10 +40,20 @@ class Admin_data_spp extends CI_Controller
       $this->load->view('admin/data-spp', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->addDataSpp();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Data SPP berhasil ditambahkan!</div>');
-      redirect('admin_data_spp');
+      $tahun = $this->input->post('tahun');
+      $nominal = $this->input->post('nominal');
+      $spp = $this->db->get_where('spp', ['tahun' => $tahun, 'nominal' => $nominal])->row_array();
+
+      if($spp > 0){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+          role="alert">Tambah SPP gagal! Data SPP sudah tersedia.</div>');
+        redirect('admin_data_spp');
+      } else {
+        $this->am->addDataSpp();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Data SPP berhasil ditambahkan!</div>');
+        redirect('admin_data_spp');
+      }
     }
   }
 
@@ -99,10 +109,20 @@ class Admin_data_spp extends CI_Controller
       $this->load->view('admin/data-spp', $data);
       $this->load->view('templates/footer');
     } else {
-      $this->am->editDataSpp();
-      $this->session->set_flashdata('message', '<div class="alert alert-success" 
-          role="alert">Data SPP berhasil diubah!</div>');
-      redirect('admin_data_spp');
+      $tahun = $this->input->post('tahun');
+      $nominal = $this->input->post('nominal');
+      $spp = $this->db->get_where('spp', ['tahun' => $tahun, 'nominal' => $nominal])->num_rows();
+
+      if($spp > 0){
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+          role="alert">Tambah SPP gagal! Data SPP sudah tersedia.</div>');
+        redirect('admin_data_spp');
+      } else {
+        $this->am->editDataSpp();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
+            role="alert">Data SPP berhasil diubah!</div>');
+        redirect('admin_data_spp');
+      }
     }
   }
 

@@ -1,5 +1,6 @@
 <div class="container">
-  <h2>SMK BPI</h2>
+  <h2>Signin Petugas</h2>
+  <h4>SMK BPI</h4>
   <?= $this->session->flashdata('message'); ?>
   <form action="<?= base_url('signin/signin_petugas'); ?>" method="POST">
     <div class="form-group">

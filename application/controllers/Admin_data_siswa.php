@@ -52,9 +52,6 @@ class Admin_data_siswa extends CI_Controller
       $email = $this->input->post('email');
       $cekemail = $this->db->get_where('siswa', ['email' => $email])->num_rows();
 
-      $nis = $this->input->post('nis');
-      $ceknis = $this->db->get_where('siswa', ['nis' => $nis])->num_rows();
-
       $nisn = $this->input->post('nisn');
       $ceknisn = $this->db->get_where('siswa', ['nisn' => $nisn])->num_rows();
 
@@ -65,10 +62,6 @@ class Admin_data_siswa extends CI_Controller
       } else if ($cekemail > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Tambah siswa gagal! Email siswa sudah terdaftar.</div>');
-        redirect('admin_data_siswa');
-      } else if ($ceknis > 0) {
-        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-            role="alert">Tambah siswa gagal! NIS siswa sudah terdaftar.</div>');
         redirect('admin_data_siswa');
       } else {
         $this->am->addDataSiswa();
@@ -114,10 +107,8 @@ class Admin_data_siswa extends CI_Controller
     $data['siswa'] = $this->am->getDataSiswa($data['keyword']);
 
     if (!$this->input->post('submit')) {
-      $this->form_validation->set_rules('nisn', 'NISN', 'required|max_length[10]|trim');
       $this->form_validation->set_rules('nis', 'NIS', 'required|max_length[10]|trim');
       $this->form_validation->set_rules('nama', 'Nama', 'required');
-      $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
       $this->form_validation->set_rules('id_kelas', 'Kelas', 'required');
       $this->form_validation->set_rules('alamat', 'Alamat', 'required');
     }

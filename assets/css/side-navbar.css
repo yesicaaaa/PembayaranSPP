@@ -49,6 +49,12 @@ body{
   background-color: #007580;
 }
 
+.pull-right-admin{
+	margin-left: 56%;
+	margin-top: 15px;
+	background-color: #007580;
+}
+
 .pull-right a{
   color: black !important;
   margin-left: 10px;
@@ -134,12 +140,11 @@ body{
 }
 
 .div-end-siswa {
-	margin-top: 158%;
+	margin-top: 163%;
 }
 
 .user-image{
-	margin-left: 44%;
-	margin-top: 30px;
+	margin-left: 20%;
 	margin-bottom: 30px;
 }
 
@@ -154,7 +159,7 @@ body{
 }
 
 .div-log {
-	margin-top: 47%;
+	margin-top: 67%;
 }
 
 .laporanbulan span{
@@ -178,4 +183,46 @@ body{
 
 .bodycatatan{
 	font-size: 14px;
+}
+
+.badge-laporan{
+	color: darkgreen !important;
+}
+
+.datasiswa{
+	font-family: 'Ubuntu', sans-serif;
+	margin-left: 20px;
+}
+
+.datasiswa span{
+	color: #fed049;
+}
+
+.img-circle {
+	border-radius: 30px;
+	height: 40px;
+	width: 12%;
+}
+
+.img-circle-admin{
+	border-radius: 22px;
+	height: 40px;
+	width: 22%;
+}
+
+.ml-30{
+	margin-left: 40%;
+}
+
+.profileuser .row{
+	margin-left: 190px;
+	margin-top: 113px;
+}
+
+.namauser {
+	margin-left: 25px;
+}
+
+.div-siswa{
+	margin-top: -29px;
 }

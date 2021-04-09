@@ -17,13 +17,17 @@ class Main extends CI_Controller
 
   public function signout_petugas()
   {
-    $this->session->sess_destroy();
+    $data = array('id_petugas', 'email', 'level', 'nama', 'gambar');
+    $this->session->unset_userdata($data);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Signout Berhasil!</div>');
     redirect('signin/signin_petugas');
   }
 
   public function signout_siswa()
   {
-    $this->session->sess_destroy();
+    $data = array('email', 'nama', 'gambar', 'id_spp', 'id_kelas','nisn');
+    $this->session->unset_userdata($data);
+    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Signout Berhasil!</div>');
     redirect('signin/signin_siswa');
   }
 

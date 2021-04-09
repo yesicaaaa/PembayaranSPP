@@ -50,6 +50,7 @@
         <th scope="col">No. Telepon</th>
         <th scope="col">Alamat</th>
         <th scope="col">Aksi</th>
+        <th scope="col">SPP</th>
       </tr>
     </thead>
     <tbody>
@@ -77,6 +78,9 @@
             <a href="javascript:getData('<?= $sw['nisn']; ?>');" class="badge badge-edit">Edit</a>
             <a href="<?= base_url(); ?>admin_data_siswa/deleteSiswa/<?= $sw['nisn']; ?>" class="badge badge-delete" onclick="return confirm('Are You Sure?')">Delete</a>
           </td>
+          <td>
+            <a href="<?= base_url() ?>admin/laporansiswa/<?= $sw['nisn']; ?>" class="badge badge-laporan">Laporan</a>
+          </td>
         </tr>
       <?php endforeach; ?>
     </tbody>
@@ -96,13 +100,13 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="<?= base_url('admin_data_siswa'); ?>" method="POST">
+      <form action="<?= base_url('admin_data_siswa'); ?>" method="POST" enctype="multipart/form-data">
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" id="nisn" name="nisn" placeholder="NISN">
+            <input type="text" class="form-control" id="nisn" name="nisn" placeholder="NISN" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="nis" name="nis" placeholder="NIS">
+            <input type="text" class="form-control" id="nis" name="nis" placeholder="NIS" onkeypress="return event.charCode >= 8 && event.charCode <= 57">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Siswa">
@@ -119,7 +123,7 @@
             </select>
           </div>
           <div class="form-group">
-            <input type="tel" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telepon">
+            <input type="text" class="form-control" id="no_telp" name="no_telp" placeholder="No. Telepon" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat">
@@ -128,9 +132,12 @@
             <select name="id_spp" id="spp" class="form-control">
               <option value=''>Pilih SPP</option>
               <?php foreach ($spp as $sp) : ?>
-                <option value="<?= $sp['id_spp']; ?>">Rp<?= number_format($sp['nominal'], 0, ',', '.'); ?></option>
+                <option value="<?= $sp['id_spp']; ?>">Rp<?= number_format($sp['nominal'], 0, ',', '.'); ?> - <?= $sp['tahun'] ?></option>
               <?php endforeach; ?>
             </select>
+          </div>
+          <div class="form-group">
+            <input type="file" class="form-control" id="gambar" name="gambar">
           </div>
           <div class="form-group">
             <input type="password" class="form-control" id="password1" name="password1" placeholder="Password">
@@ -162,27 +169,33 @@
       <form action="<?= base_url('admin_data_siswa/editDataSiswa'); ?>" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <input type="text" class="form-control" id="nisnEdit" name="nisn">
+            <input type="text" class="form-control" id="nisnEditDisabled" name="nisn" disabled>
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="nisEdit" name="nis">
+            <input type="hidden" class="form-control" id="nisnEdit" name="nisn">
+          </div>
+          <div class="form-group">
+            <input type="text" class="form-control" id="nisEdit" name="nis" onkeypress="return event.charCode >= 8 && event.charCode <= 57">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="namaEdit" name="nama">
           </div>
           <div class="form-group">
-            <input type="email" class="form-control" id="emailEdit" name="email">
+            <input type="email" class="form-control" id="emailEditDisabled" name="email" disabled>
+          </div>
+          <div class="form-group">
+            <input type="hidden" class="form-control" id="emailEdit" name="email">
           </div>
           <div class="form-group">
             <select name="id_kelas" id="kelasEdit" class="form-control">
-              <option value = ''>Pilih Kelas</option>
+              <option value=''>Pilih Kelas</option>
               <?php foreach ($kelas as $kl) : ?>
                 <option value="<?= $kl['id_kelas']; ?>"><?= $kl['nama_kelas'] ?> <?= $kl['kompetensi_keahlian']; ?></option>
               <?php endforeach; ?>
             </select>
           </div>
           <div class="form-group">
-            <input type="tel" class="form-control" id="no_telpEdit" name="no_telp">
+            <input type="text" class="form-control" id="no_telpEdit" name="no_telp" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="alamatEdit" name="alamat">
@@ -209,9 +222,11 @@
         nisn: nisn
       },
       success: function(data) {
-        $('#nisnEdit').val(data.nisn),
+        $('#nisnEditDisabled').val(data.nisn),
+          $('#nisnEdit').val(data.nisn),
           $('#nisEdit').val(data.nis),
           $('#namaEdit').val(data.nama),
+          $('#emailEditDisabled').val(data.email),
           $('#emailEdit').val(data.email),
           $('#kelasEdit').val(data.id_kelas),
           $('#no_telpEdit').val(data.no_telp),

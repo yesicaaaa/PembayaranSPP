@@ -20,22 +20,17 @@
       <a href="<?= base_url(); ?>admin/refreshTP"><img class="refresh" src="<?= base_url(); ?>assets/img/refresh.png"></a>
     </div>
   </div>
-  <?= form_error('id_petugas', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-  <?= form_error('nisn', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-  <?= form_error('nama', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-  <?= form_error('id_kelas', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= form_error('bulan_dibayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= form_error('tahun_dibayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-  <?= form_error('id_spp', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
-  <?= form_error('jumlah_bayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
+  <?= form_error('tgl_bayar', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
   <?= $this->session->flashdata('message'); ?>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua siswa 
-  <?php else : ?>
-  <?= $this->session->keyword ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua siswa
+      <?php else : ?>
+        <?= $this->session->keyword ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>
@@ -49,7 +44,7 @@
     <tbody>
       <?php if (empty($siswa)) : ?>
         <tr>
-          <td colspan="3">
+          <td colspan="2">
             <div class="alert alert-danger" role="alert">
               Data not found!
             </div>
@@ -88,12 +83,7 @@
       <form action="<?= base_url('admin/transaksi_pembayaran'); ?>" method="POST">
         <div class="modal-body">
           <div class="form-group">
-            <select name="id_petugas" id="petugas" class="form-control">
-              <option>Nama Petugas</option>
-              <?php foreach ($petugas as $pg) : ?>
-                <option value="<?= $pg['id_petugas']; ?>"><?= $pg['nama_petugas']; ?></option>
-              <?php endforeach; ?>
-            </select>
+            <input type="hidden" class="form-control" name="id_petugas" value="<?= $this->session->userdata('id_petugas'); ?>">
           </div>
           <div class="form-group">
             <input type="text" class="form-control" id="nisnDisable" disabled>
@@ -110,17 +100,16 @@
           </div>
           <div class="form-group input-group">
             <select name="bulan_dibayar" id="bulan_dibayar" class="form-control">
-              <option>Bulan</option>
+              <option value="">Bulan</option>
               <?php
               $bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
-              $jml_bulan = count($bulan);
-              for ($i = 0; $i < $jml_bulan; $i++) : ?>
-                <option value="<?= $bulan[$i]; ?>"><?= $bulan[$i]; ?></option>
-              <?php endfor; ?>
+              foreach ($bulan as $b) : ?>
+                <option value="<?= $b; ?>"><?= $b; ?></option>
+              <?php endforeach; ?>
             </select>
             <select name="tahun_dibayar" id="tahun_dibayar" class="form-control">
-              <option>Tahun</option>
-              <?php for ($i = 2021; $i <= date('Y'); $i++) : ?>
+              <option value="">Tahun</option>
+              <?php for ($i = 2018; $i <= 2024; $i++) : ?>
                 <option value="<?= $i; ?>"><?= $i; ?></option>
               <?php endfor; ?>
             </select>
@@ -132,7 +121,7 @@
             <input type="hidden" class="form-control" id="id_spp" name="id_spp">
           </div>
           <div class="form-group">
-            <input type="text" class="form-control" id="jumlah_bayar" name="jumlah_bayar" placeholder="Total Bayar">
+            <input type="hidden" class="form-control" id="jumlah_bayar" name="jumlah_bayar">
           </div>
           <div class="form-group">
             <input type="date" class="form-control" id="tgl_bayar" name="tgl_bayar" placeholder="Tanggal Bayar">
@@ -166,6 +155,7 @@
           $('#kompetensi_keahlian').val(data.kompetensi_keahlian),
           $('#id_sppDisable').val(data.nominal),
           $('#id_spp').val(data.id_spp),
+          $('#jumlah_bayar').val(data.nominal),
           $('#transaksiSpp').modal()
       }
     });

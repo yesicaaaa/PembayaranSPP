@@ -16,7 +16,6 @@ class Petugas extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'petugas' => $this->db->get('petugas')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -31,13 +30,9 @@ class Petugas extends CI_Controller
     $data['siswa'] = $this->pm->getDataSiswaSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
-      $this->form_validation->set_rules('id_petugas', 'Nama Petugas', 'required');
-      $this->form_validation->set_rules('nisn', 'NISN Siswa', 'required');
       $this->form_validation->set_rules('tgl_bayar', 'Tanggal Bayar', 'required');
       $this->form_validation->set_rules('bulan_dibayar', 'Bulan Dibayar', 'required');
       $this->form_validation->set_rules('tahun_dibayar', 'Tahun Dibayar', 'required');
-      $this->form_validation->set_rules('id_spp', 'Jenis SPP', 'required');
-      $this->form_validation->set_rules('jumlah_bayar', 'Total Bayar', 'required');
     }
 
     if ($this->form_validation->run() == false) {
@@ -51,25 +46,22 @@ class Petugas extends CI_Controller
       $nisn = $this->input->post('nisn');
       $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
 
-      if($pembayaran > 0){
+      $idspp = $this->input->post('id_spp');
+      $tahunspp = $this->db->get_where('spp', ['id_spp' => $idspp])->row_array();
+
+      if ($pembayaran > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
         role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('petugas/transaksi_pembayaran');
-      } else {
-        $id_spp = $this->input->post('id_spp');
-        $jmlbayar = $this->input->post('jumlah_bayar');
-        $nominalspp = $this->db->get_where('spp', ['id_spp' => $id_spp])->row_array();
-
-        if($nominalspp['nominal'] == $jmlbayar){
-          $this->pm->transaksiPembayaran();
-          $this->session->set_flashdata('message', '<div class="alert alert-success" 
+      } else if ($tahun_dibayar == $tahunspp['tahun'] || $tahun_dibayar == $tahunspp['tahun'] + 1 || $tahun_dibayar == $tahunspp['tahun'] + 2) {
+        $this->pm->transaksiPembayaran();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
               role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-          redirect('petugas/transaksi_pembayaran');
-        } else {
-          $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-              role="alert">Transaksi gagal! Nominal yang dimasukan kurang.</div>');
-          redirect('petugas/transaksi_pembayaran');
-        }
+        redirect('petugas/transaksi_pembayaran');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+              role="alert">Transaksi Pembayaran SPP gagal! Tahun pembayaran tidak berlaku</div>');
+        redirect('petugas/transaksi_pembayaran');
       }
     }
   }
@@ -110,7 +102,7 @@ class Petugas extends CI_Controller
       'css'   => 'assets/css/side-navbar.css'
     ];
 
-    if($this->input->post('submit')){
+    if ($this->input->post('submit')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
     } else {

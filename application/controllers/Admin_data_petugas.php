@@ -96,7 +96,6 @@ class Admin_data_petugas extends CI_Controller
 
     if (!$this->input->post('submit')) {
       $this->form_validation->set_rules('nama_petugas', 'Nama Petugas', 'required');
-      $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email');
       $this->form_validation->set_rules('no_telp', 'No. Telepon', 'required');
       $this->form_validation->set_rules('alamat', 'Alamat', 'required');
       $this->form_validation->set_rules('level', 'Posisi', 'required');

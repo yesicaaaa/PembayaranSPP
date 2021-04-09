@@ -21,38 +21,38 @@
     </div>
   </div>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua catatan
-  <?php else : ?>
-  <?= $this->session->keyword; ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua catatan
+      <?php else : ?>
+        <?= $this->session->keyword; ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
-      <tr class="headcatatan">
+      <tr>
         <th scope="col">#</th>
         <th scope="col">Nama Petugas</th>
-        <th scope="col">Email Baru</th>
-        <th scope="col">Email Lama</th>
         <th scope="col">Telepon Baru</th>
         <th scope="col">Telepon Lama</th>
         <th scope="col">Posisi Baru</th>
         <th scope="col">Posisi Lama</th>
+        <th scope="col">Alamat Baru</th>
+        <th scope="col">Alamat Lama</th>
         <th scope="col">Tanggal Diubah</th>
       </tr>
     </thead>
     <tbody>
       <?php $i = 1 ?>
       <?php foreach ($catatan as $ct) : ?>
-        <tr class="bodycatatan">
+        <tr>
           <th scope="row"><?= $i++ ?></th>
           <td><?= $ct['nama_petugas_lama'] ?></td>
-          <td><?= $ct['email_baru'] ?></td>
-          <td><?= $ct['email_lama'] ?></td>
           <td><?= $ct['no_telp_baru'] ?></td>
           <td><?= $ct['no_telp_lama'] ?></td>
           <td><?= $ct['posisi_baru'] ?></td>
           <td><?= $ct['posisi_lama'] ?></td>
+          <td><?= $ct['alamat_baru'] ?></td>
+          <td><?= $ct['alamat_lama'] ?></td>
           <td><?= $ct['tgl_diubah'] ?></td>
         </tr>
       <?php endforeach; ?>

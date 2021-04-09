@@ -84,7 +84,7 @@
           <div class="form-group">
             <select name="tahun" id="tahun" class="form-control">
               <option>Pilih Tahun</option>
-              <?php for ($tahun = 2021; $tahun <= date('Y'); $tahun++) : ?>
+              <?php for ($tahun = 2018; $tahun <= 2022; $tahun++) : ?>
                 <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
               <?php endfor; ?>
             </select>
@@ -119,7 +119,7 @@
           <div class="form-group">
             <select name="tahun" id="tahunEdit" class="form-control">
               <option>Pilih Tahun</option>
-              <?php for ($tahun = 2021; $tahun <= date('Y'); $tahun++) : ?>
+              <?php for ($tahun = 2018; $tahun <= 2022; $tahun++) : ?>
                 <option value="<?= $tahun; ?>"><?= $tahun; ?></option>
               <?php endfor; ?>
             </select>

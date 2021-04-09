@@ -2,7 +2,7 @@
 <nav class="navbar sticky-top bg-nav">
   <a class="navbar-brand">SMK BPI Bandung</a>
   <span class="user-name petugas-name"><?= $this->session->nama; ?></span>
-  <img class="img-circle img-petugas" src="<?= base_url() ?>assets/img/<?= $this->session->gambar; ?>">
+  <img class="img-circle img-petugas" src="<?= base_url() ?>assets/userImage/<?= $this->session->gambar; ?>">
 </nav>
 <!-- end navbar -->
 <!-- sidebar -->

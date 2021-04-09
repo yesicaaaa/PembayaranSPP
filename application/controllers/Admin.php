@@ -16,7 +16,6 @@ class Admin extends CI_Controller
   {
     $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'petugas' => $this->db->get('petugas')->result_array(),
       'title' => 'Transaksi Pembayaran | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
@@ -31,13 +30,9 @@ class Admin extends CI_Controller
     $data['siswa'] = $this->am->getDataSiswaSpp($data['keyword']);
 
     if (!$this->input->post('submit')) {
-      $this->form_validation->set_rules('id_petugas', 'Nama Petugas', 'required');
-      $this->form_validation->set_rules('nisn', 'NISN Siswa', 'required');
       $this->form_validation->set_rules('tgl_bayar', 'Tanggal Bayar', 'required');
       $this->form_validation->set_rules('bulan_dibayar', 'Bulan Dibayar', 'required');
       $this->form_validation->set_rules('tahun_dibayar', 'Tahun Dibayar', 'required');
-      $this->form_validation->set_rules('id_spp', 'Jenis SPP', 'required');
-      $this->form_validation->set_rules('jumlah_bayar', 'Total Bayar', 'required');
     }
 
     if ($this->form_validation->run() == false) {
@@ -46,30 +41,27 @@ class Admin extends CI_Controller
       $this->load->view('admin/transaksi-pembayaran', $data);
       $this->load->view('templates/footer');
     } else {
+      $nisn = $this->input->post('nisn');
       $bulan_dibayar = $this->input->post('bulan_dibayar');
       $tahun_dibayar = $this->input->post('tahun_dibayar');
-      $nisn = $this->input->post('nisn');
       $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
+
+      $id_spp = $this->input->post('id_spp');
+      $tahunspp = $this->db->get_where('spp', ['id_spp' => $id_spp])->row_array();
 
       if ($pembayaran > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('admin/transaksi_pembayaran');
-      } else {
-        $spp = $this->input->post('id_spp');
-        $jmlbayar = $this->input->post('jumlah_bayar');
-        $nominalspp = $this->db->get_where('spp', ['id_spp' => $spp])->row_array();
-
-        if ($nominalspp['nominal'] == $jmlbayar) {
-          $this->am->transaksiPembayaran();
-          $this->session->set_flashdata('message', '<div class="alert alert-success" 
+      } else if($tahun_dibayar == $tahunspp['tahun'] || $tahun_dibayar == $tahunspp['tahun'] + 1 || $tahun_dibayar == $tahunspp['tahun'] + 2 ) {
+        $this->am->transaksiPembayaran();
+        $this->session->set_flashdata('message', '<div class="alert alert-success" 
               role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
-          redirect('admin/transaksi_pembayaran');
-        } else {
-          $this->session->set_flashdata('message', '<div class="alert alert-danger" 
-              role="alert">Transaksi gagal! Nominal yang dimasukkan kurang.</div>');
-          redirect('admin/transaksi_pembayaran');
-        }
+        redirect('admin/transaksi_pembayaran');
+      } else {
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" 
+            role="alert">Transaksi pembayaran gagal! Tahun dibayar tidak berlaku!</div>');
+        redirect('admin/transaksi_pembayaran');
       }
     }
   }
@@ -132,59 +124,41 @@ class Admin extends CI_Controller
   }
 
   //LAPORAN
-  public function laporan()
+  public function laporansiswa($nisn)
   {
-    $datatemplate = [
+    $data = [
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
-      'title' => 'Laporan | SMK BPI',
+      'siswa' => $this->db->get_where('siswa', ['nisn' => $nisn])->row_array(),
+      'title' => 'Laporan Siswa | SMK BPI',
       'css'   => 'assets/css/side-navbar.css'
     ];
 
-    if ($this->input->post('submit')) {
-      $data['keyword'] = $this->input->post('keyword');
-      $this->session->set_userdata('keyword', $data['keyword']);
-    } else {
-      $data['keyword'] = $this->session->userdata('keyword');
-    }
+    $siswa = $this->db->get_where('siswa', ['nisn' => $nisn])->row_array();
+    $tahunspp = $this->db->get_where('spp', ['id_spp' => $siswa['id_spp']])->row_array();
 
-    $siswa = $this->am->getSiswaLaporan($data['keyword']);
-    $dataSiswa = array();
-
-    foreach ($siswa as $s) {
+    for ($tahun = $tahunspp['tahun']; $tahun <= $tahunspp['tahun'] + 2; $tahun++) {
       $bulan = array('Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember');
-      $jml_bulan = count($bulan);
-      for ($i = 0; $i < $jml_bulan; $i++) {
-        for ($tahun = 2021; $tahun <= date('Y'); $tahun++) {
-          $checkPembayaran  = $this->am->checkPembayaran($s['nisn'], $bulan[$i], $tahun);
-          if ($checkPembayaran == 1) {
-            $status = 'Lunas';
-          } else {
-            $status = 'Belum Lunas';
-          }
-          $dataSiswa[] = array(
-            'nisn'  => $s['nisn'],
-            'nama'  => $s['nama'],
-            'bulan' => $bulan[$i],
-            'tahun' => $tahun,
-            'status'  => $status
-          );
+      foreach ($bulan as $b) {
+        $cekPembayaran = $this->am->checkPembayaran($siswa['nisn'], $b, $tahun);
+        if ($cekPembayaran > 0) {
+          $status = 'Lunas';
+        } else {
+          $status = 'Belum Lunas';
         }
+        $dataSiswa[] = array(
+          'bulan' => $b,
+          'tahun' => $tahun,
+          'status'  => $status
+        );
       }
     }
 
-    $data['siswa'] = $dataSiswa;
+    $data['laporanSiswa'] = $dataSiswa;
 
-    $this->load->view('templates/header', $datatemplate);
-    $this->load->view('templates_admin/side-navbar', $datatemplate);
-    $this->load->view('admin/laporan', $data);
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/laporan-siswa', $data);
     $this->load->view('templates/footer');
-  }
-
-  public function refreshLP()
-  {
-    $this->session->unset_userdata('keyword');
-    $this->session->unset_userdata('keyword2');
-    redirect('admin/laporan');
   }
 
   public function catatan_database()
@@ -195,10 +169,10 @@ class Admin extends CI_Controller
       'css'   => 'assets/css/side-navbar.css'
     ];
 
-    if($this->input->post('submit')){
+    if ($this->input->post('submit')) {
       $data['keyword'] = $this->input->post('keyword');
       $this->session->set_userdata('keyword', $data['keyword']);
-    } else {  
+    } else {
       $data['keyword'] = $this->session->userdata('keyword');
     }
 

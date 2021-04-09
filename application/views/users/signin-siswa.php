@@ -21,7 +21,7 @@
       </div>
       <?= form_error('password', ' <small class="text-danger pl-3">', '</small>'); ?>
     </div>
-    <a id="pass" class="forgotpass" href="<?= base_url(); ?>signin/forgot_password_siswa">Forgot password?</a>
+    <a id="pass" class="forgotpass" href="<?= base_url(); ?>signin/forgot_password_siswa">Lupa password?</a>
     <button type="submit" class="btn">Sign in</button>
     <a class="back" href="<?= base_url(); ?>main">Kembali</a>
   </form>

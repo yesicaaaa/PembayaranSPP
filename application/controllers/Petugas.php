@@ -45,6 +45,7 @@ class Petugas extends CI_Controller
       $tahun_dibayar = $this->input->post('tahun_dibayar');
       $nisn = $this->input->post('nisn');
       $pembayaran = $this->db->get_where('pembayaran', ['nisn' => $nisn, 'bulan_dibayar' => $bulan_dibayar, 'tahun_dibayar' => $tahun_dibayar])->num_rows();
+      // $pembayaran = $this->db->query("CALL pembayaranrow('$nisn', '$bulan_dibayar', '$tahun_dibayar')")->num_rows();
 
       $idspp = $this->input->post('id_spp');
       $tahunspp = $this->db->get_where('spp', ['id_spp' => $idspp])->row_array();

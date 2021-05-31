@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Lexend+Mega&display=swap');
+ @import url('https://fonts.googleapis.com/css2?family=Ubuntu&family=Lexend+Mega&display=swap');
 
 body{
 	overflow-x: hidden;
@@ -56,7 +56,7 @@ body{
 }
 
 .pull-right a{
-  color: black !important;
+  color: white !important;
   margin-left: 10px;
 	text-decoration: none;
 }
@@ -148,6 +148,10 @@ body{
 	margin-bottom: 30px;
 }
 
+.user-name {
+	color: white;
+}
+
 .petugas-info{
 	margin-left: 43%;
 }
@@ -225,4 +229,8 @@ body{
 
 .div-siswa{
 	margin-top: -29px;
+}
+
+.name-color {
+	color: white !important;
 }

@@ -189,4 +189,19 @@ class Admin extends CI_Controller
     $this->session->unset_userdata('keyword');
     redirect('admin/catatan_database');
   }
+
+  public function dashboard()
+  {
+    $data = [
+      'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
+      'title' => 'Dashboard | SMK BPI Bandung',
+      'css'   => 'assets/css/side-navbar.css',
+      'result'  => $this->am->siswa_kelas_res()
+    ];
+
+    $this->load->view('templates/header', $data);
+    $this->load->view('templates_admin/side-navbar', $data);
+    $this->load->view('admin/dashboard.php', $data);
+    $this->load->view('templates/footer');
+  }
 }

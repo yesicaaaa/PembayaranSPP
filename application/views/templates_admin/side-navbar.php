@@ -1,7 +1,7 @@
 <!-- Navbar -->
 <nav class="navbar sticky-top bg-nav">
   <a class="navbar-brand">SMK BPI Bandung</a>
-  <div class="btn-group btn-group-option">
+  <div class="btn-group btn-group-option name-color">
     <button type="button" class="btn btn-default dropdown-toggle ml-30" data-toggle="dropdown">
       <img class="img-circle-admin" width="15%" src="<?= base_url() ?>assets/userImage/<?= $this->session->gambar; ?>">
       <span class="user-name"><?= $this->session->nama; ?></span>
@@ -19,6 +19,10 @@
   <h3 class="manage">Management</h3>
   <div class="divider"></div>
   <div>
+    <!-- <ul class="nav nav-pills nav-stacked">
+      <li><a href="<?= base_url('admin/dashboard'); ?>"><i class="fa fa-fw fa-home"></i><span>Dashboard</span></a></li>
+    </ul>
+    <div class="divider"></div> -->
     <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url('admin_data_petugas'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
     </ul>

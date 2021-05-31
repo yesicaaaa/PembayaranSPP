@@ -119,4 +119,16 @@ class Admin_data_petugas extends CI_Controller
     $this->session->unset_userdata('keyword');
     redirect('admin_data_petugas');
   }
+
+  public function export_petugas()
+  {
+    if ($this->input->post('submit')) {
+      $data['keyword'] = $this->input->post('keyword');
+      $this->session->set_userdata('keyword', $data['keyword']);
+    } else {
+      $data['keyword'] = $this->session->userdata('keyword');
+    }
+
+    $data['petugas'] = $this->am->getPetugas($data['keyword']);
+  }
 }

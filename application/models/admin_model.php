@@ -347,4 +347,15 @@ class admin_model extends CI_Model
 
     return $this->db->query($sql)->result_array();
   }
+
+  //chart user
+  public function siswa_kelas_res()
+  {
+    $this->db->group_by('id_kelas');
+    $this->db->select('id_kelas');
+    $this->db->select('count(*) as total');
+    return $this->db->from('siswa')
+          ->get()
+          ->result();
+  }
 }

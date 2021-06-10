@@ -59,15 +59,16 @@
 
 
 <script>
+  var BASE_URL = '<?= base_url(); ?>';
+
   $(function() {
     setInterval(timestamp, 1000);
   });
 
-  function timestamp()
-  {
+  function timestamp() {
     $.ajax({
-      url: '<?= base_url() ?>main/time',
-      success: function(data){
+      url: BASE_URL + 'main/time',
+      success: function(data) {
         $('#timestamp').html(data);
       }
     });

@@ -44,7 +44,7 @@ class Admin_data_kelas extends CI_Controller
       $kompetensikeahlian = $this->input->post('kompetensi_keahlian');
       $kelas = $this->db->get_where('kelas', ['nama_kelas' => $namakelas, 'kompetensi_keahlian' => $kompetensikeahlian])->num_rows();
 
-      if($kelas > 0){
+      if ($kelas > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
           role="alert">Tambah kelas gagal! Kelas sudah tersedia</div>');
         redirect('admin_data_kelas');
@@ -112,8 +112,8 @@ class Admin_data_kelas extends CI_Controller
       $namakelas = $this->input->post('nama_kelas');
       $kompetensikeahlian = $this->input->post('kompetensi_keahlian');
       $kelas = $this->db->get_where('kelas', ['nama_kelas' => $namakelas, 'kompetensi_keahlian' => $kompetensikeahlian])->num_rows();
-      
-      if($kelas > 0){
+
+      if ($kelas > 0) {
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
           role="alert">Tambah kelas gagal! Kelas sudah tersedia.</div>');
         redirect('admin_data_kelas');

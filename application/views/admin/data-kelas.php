@@ -25,12 +25,12 @@
   <?= $this->session->flashdata('message'); ?>
   <a href="" class="btn btn-add" data-toggle="modal" data-target="#tambahKelas"><i class="fa fa-fw fa-user-plus"></i> Tambah Kelas Baru</a>
   <h5 class="laporanbulan">Pencarian untuk <span>
-  <?php if(!$this->session->keyword) : ?>
-  semua kelas
-  <?php else : ?>
-  kelas <?= $this->session->keyword; ?>
-  <?php endif; ?>
-  </span></h5>
+      <?php if (!$this->session->keyword) : ?>
+        semua kelas
+      <?php else : ?>
+        kelas <?= $this->session->keyword; ?>
+      <?php endif; ?>
+    </span></h5>
   <table class="table">
     <thead>
       <tr>

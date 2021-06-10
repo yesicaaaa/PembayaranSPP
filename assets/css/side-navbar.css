@@ -139,8 +139,12 @@ body{
 	margin-top: 126%;
 }
 
+.div-log {
+	margin-top: 8%;
+}
+
 .div-end-siswa {
-	margin-top: 163%;
+	margin-top: 6%;
 }
 
 .user-image{
@@ -234,7 +238,6 @@ body{
 #timestamp {
 	color: white !important;
 	text-align: center;
-	margin-top: ;
 	font-size: 20px;
 }
 
@@ -242,4 +245,12 @@ body{
 	color: white !important;
 	text-align: center;
 	margin-top: 10px;
+}
+
+.date-petugas {
+	margin-top: 95% !important;
+}
+
+.date-siswa {
+	margin-top: 133% !important;
 }

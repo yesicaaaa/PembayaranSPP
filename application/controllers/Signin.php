@@ -39,7 +39,7 @@ class Signin extends CI_Controller
         ];
         $this->session->set_userdata($data);
           if ($user['level'] == 'Admin') {
-            redirect('admin_data_petugas');
+            redirect('admin/dashboard');
           } else {
             redirect('petugas/transaksi_pembayaran');
           }

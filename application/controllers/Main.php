@@ -45,4 +45,9 @@ class Main extends CI_Controller
   {
     $this->load->view('blocked_admin');
   }
+
+  public function time()
+  {
+    $this->load->view('time');
+  }
 }

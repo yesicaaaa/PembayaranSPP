@@ -53,7 +53,7 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('message', '<div class="alert alert-danger" 
             role="alert">Transaksi pembayaran tersebut sudah pernah dibayarkan!</div>');
         redirect('admin/transaksi_pembayaran');
-      } else if($tahun_dibayar == $tahunspp['tahun'] || $tahun_dibayar == $tahunspp['tahun'] + 1 || $tahun_dibayar == $tahunspp['tahun'] + 2 ) {
+      } else if ($tahun_dibayar == $tahunspp['tahun'] || $tahun_dibayar == $tahunspp['tahun'] + 1 || $tahun_dibayar == $tahunspp['tahun'] + 2) {
         $this->am->transaksiPembayaran();
         $this->session->set_flashdata('message', '<div class="alert alert-success" 
               role="alert">Transaksi Pembayaran SPP Berhasil!</div>');
@@ -196,7 +196,10 @@ class Admin extends CI_Controller
       'user'  => $this->db->get_where('petugas', ['email' => $this->session->userdata('email')])->row_array(),
       'title' => 'Dashboard | SMK BPI Bandung',
       'css'   => 'assets/css/side-navbar.css',
-      'result'  => $this->am->siswa_kelas_res()
+      'kelas_result'  => $this->am->siswa_kelas_res(),
+      'petugas_result'  => $this->am->petugas_res(),
+      'spp_result'  => $this->am->spp_res(),
+      'pembayaran_result' => $this->am->pembayaran_res()
     ];
 
     $this->load->view('templates/header', $data);

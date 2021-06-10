@@ -19,10 +19,10 @@
   <h3 class="manage">Management</h3>
   <div class="divider"></div>
   <div>
-    <!-- <ul class="nav nav-pills nav-stacked">
+    <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url('admin/dashboard'); ?>"><i class="fa fa-fw fa-home"></i><span>Dashboard</span></a></li>
     </ul>
-    <div class="divider"></div> -->
+    <div class="divider"></div>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url('admin_data_petugas'); ?>"><i class="fa fa-fw fa-users"></i><span>Data Petugas</span></a></li>
     </ul>
@@ -47,11 +47,29 @@
       <li><a href="<?= base_url('admin/history_pembayaran'); ?>"><i class="fa fa-fw fa-tasks"></i><span>History Pembayaran</span></a></li>
     </ul>
     <div class="divider"></div>
-    <div class="divider div-log"></div>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="<?= base_url('admin/catatan_database') ?>"><i class="fa fa-fw fa-database"></i><span>Catatan Database</span></a></li>
     </ul>
     <div class="divider"></div>
+    <h4 class="date"><?= date('l, d M Y') ?></h4>
+    <h4 id="timestamp"></h4>
   </div>
 </div>
 <!-- end sidebar -->
+
+
+<script>
+  $(function() {
+    setInterval(timestamp, 1000);
+  });
+
+  function timestamp()
+  {
+    $.ajax({
+      url: '<?= base_url() ?>main/time',
+      success: function(data){
+        $('#timestamp').html(data);
+      }
+    });
+  }
+</script>

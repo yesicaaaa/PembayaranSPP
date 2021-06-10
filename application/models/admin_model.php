@@ -351,11 +351,37 @@ class admin_model extends CI_Model
   //chart user
   public function siswa_kelas_res()
   {
-    $this->db->group_by('id_kelas');
-    $this->db->select('id_kelas');
-    $this->db->select('count(*) as total');
-    return $this->db->from('siswa')
-          ->get()
-          ->result();
+    $sql = "SELECT `kelas`.`kompetensi_keahlian`, count(*) as total
+            FROM `siswa`
+            JOIN `kelas` ON `kelas`.`id_kelas` = `siswa`.`id_kelas`
+            GROUP BY `kelas`.`kompetensi_keahlian`";
+    
+    return $this->db->query($sql)->result_array();
+  }
+
+  public function petugas_res()
+  {
+    $sql = "SELECT `level`, count(*) as total
+            FROM `petugas`
+            GROUP BY `level`";
+    return $this->db->query($sql)->result_array();
+  }
+
+  public function spp_res()
+  {
+    $sql = "SELECT `spp`.`nominal`, count(`siswa`.`id_spp`) as total
+            FROM `spp` 
+            JOIN `siswa` ON `siswa`.`id_spp` = `spp`.`id_spp`
+            GROUP BY  `spp`.`nominal`";
+    return $this->db->query($sql)->result_array();
+  }
+
+  public function pembayaran_res()
+  {
+    $sql = "SELECT `tahun_dibayar`, count(*) as total
+            FROM `pembayaran`
+            GROUP BY `tahun_dibayar`
+            ";
+    return $this->db->query($sql)->result_array();
   }
 }

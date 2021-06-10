@@ -162,10 +162,6 @@ body{
 	margin-bottom: 15px;
 }
 
-.div-log {
-	margin-top: 67%;
-}
-
 .laporanbulan span{
 	color: #fed049;
 }
@@ -233,4 +229,17 @@ body{
 
 .name-color {
 	color: white !important;
+}
+
+#timestamp {
+	color: white !important;
+	text-align: center;
+	margin-top: ;
+	font-size: 20px;
+}
+
+.date {
+	color: white !important;
+	text-align: center;
+	margin-top: 10px;
 }

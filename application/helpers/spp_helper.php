@@ -29,7 +29,7 @@ function is_logged_in_petugas()
 
     if ($nisn) {
       redirect('main/blocked_siswa');
-    } else if($access['level'] != 'Petugas'){
+    } else if ($access['level'] != 'Petugas') {
       redirect('main/blocked_admin');
     }
   }
@@ -44,10 +44,10 @@ function is_logged_in_siswa()
     $level = $ci->session->userdata('level');
     $access = $ci->db->get_where('petugas', ['level' => $level])->row_array();
 
-    if($access){
+    if ($access) {
       if ($access['level'] == 'Admin') {
         redirect('main/blocked_admin');
-      } else if($access['level'] == 'Petugas'){
+      } else if ($access['level'] == 'Petugas') {
         redirect('main/blocked_petugas');
       }
     }

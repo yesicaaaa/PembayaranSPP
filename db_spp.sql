@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2021 at 02:27 PM
+-- Generation Time: Sep 03, 2021 at 04:03 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.14
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_spp`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pembayaranrow` (IN `nisnsiswa` INT, IN `bulandibayar` VARCHAR(11), IN `tahundibayar` INT)  NO SQL
+BEGIN
+
+SELECT * FROM pembayaran
+WHERE nisn = nisnsiswa
+AND bulan_dibayar = bulandibayar
+AND tahun_dibayar = tahundibayar;
+
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -85,7 +101,11 @@ INSERT INTO `log_petugas` (`id_log_petugas`, `id_petugas`, `nama_petugas_baru`, 
 (9, 21, 'Indra Kurniawan', 'Indra Kurniawan', 'indra@gmail.com', 'indra@gmail.com', '089400839283', '085400839283', 'Bandung', 'Bandung', 'Petugas', 'Petugas', '2021-04-09'),
 (10, 8, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn654@gmail.com', 'yesicaagrn654@gmail.com', '085844703403', '085844703403', 'Bandung', 'Bandung', 'Admin', 'Admin', '2021-04-09'),
 (11, 8, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn654@gmail.com', 'yesicaagrn654@gmail.com', '085844703403', '085844703403', 'Bandung', 'Bandung', 'Admin', 'Admin', '2021-04-09'),
-(12, 22, 'Celine Natalie', 'Celine Natalie', 'celine@gmail.com', 'celine@gmail.com', '089478541132', '089400541132', 'Bandung', 'Bandung', 'Petugas', 'Petugas', '2021-04-09');
+(12, 22, 'Celine Natalie', 'Celine Natalie', 'celine@gmail.com', 'celine@gmail.com', '089478541132', '089400541132', 'Bandung', 'Bandung', 'Petugas', 'Petugas', '2021-04-09'),
+(13, 22, 'Celine ', 'Celine Natalie', 'celine@gmail.com', 'celine@gmail.com', '089400541132', '089400541000', 'Bandung', 'Bandung', 'Petugas', 'Petugas', '2021-04-10'),
+(14, 21, 'Indra Kurniawan', 'Indra Kurniawan', 'indra@gmail.com', 'indra@gmail.com', '085400839283', '085400800000', 'Bandung', 'Bandung', 'Petugas', 'Petugas', '2021-04-10'),
+(15, 8, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn654@gmail.com', 'yesicaagrn654@gmail.com', '085844703403', '085844703403', 'Bandung', 'Bandung', 'Admin', 'Admin', '2021-04-10'),
+(16, 8, 'Yesica Anggraeni', 'Yesica Anggraeni', 'yesicaagrn654@gmail.com', 'yesicaagrn654@gmail.com', '085844703403', '085844703403', 'Bandung', 'Bandung', 'Admin', 'Admin', '2021-04-10');
 
 -- --------------------------------------------------------
 
@@ -180,7 +200,18 @@ INSERT INTO `pembayaran` (`id_pembayaran`, `id_petugas`, `nisn`, `tgl_bayar`, `b
 (68, 8, '0054839538', '2021-04-09', 'Maret', '2020', 19, 420000, 'Lunas'),
 (69, 8, '0048532942', '2021-04-09', 'April', '2018', 17, 400000, 'Lunas'),
 (70, 8, '0048532942', '2021-04-09', 'Mei', '2018', 17, 400000, 'Lunas'),
-(71, 8, '0027837743', '2021-04-09', 'Mei', '2018', 17, 400000, 'Lunas');
+(71, 8, '0027837743', '2021-04-09', 'Mei', '2018', 17, 400000, 'Lunas'),
+(72, 22, '0058958903', '2021-04-09', 'Januari', '2018', 17, 400000, 'Lunas'),
+(73, 22, '0058958903', '2021-04-09', 'Februari', '2018', 17, 400000, 'Lunas'),
+(74, 22, '0058958903', '2021-04-09', 'Maret', '2018', 17, 400000, 'Lunas'),
+(75, 22, '0058958903', '2021-04-09', 'April', '2018', 17, 400000, 'Lunas'),
+(76, 22, '0084829934', '2021-04-10', 'Februari', '2021', 18, 410000, 'Lunas'),
+(77, 8, '0096537893', '2021-04-10', 'April', '2018', 17, 400000, 'Lunas'),
+(78, 21, '0084829934', '2021-04-10', 'Oktober', '2021', 18, 410000, 'Lunas'),
+(79, 8, '0048782819', '2021-08-31', 'Januari', '2020', 19, 420000, 'Lunas'),
+(80, 8, '0048782819', '2021-08-31', 'Februari', '2020', 19, 420000, 'Lunas'),
+(81, 8, '0048782819', '2021-08-31', 'Maret', '2020', 19, 420000, 'Lunas'),
+(82, 8, '0048782819', '2021-08-31', 'April', '2020', 19, 420000, 'Lunas');
 
 -- --------------------------------------------------------
 
@@ -204,9 +235,9 @@ CREATE TABLE `petugas` (
 --
 
 INSERT INTO `petugas` (`id_petugas`, `email`, `password`, `nama_petugas`, `gambar`, `no_telp`, `alamat`, `level`) VALUES
-(8, 'yesicaagrn654@gmail.com', '$2y$10$6NfCFgm4S9R1ftMa5OoovuT9ECqiEVNNuVbm5chvxaQwAN.wfOuya', 'Yesica Anggraeni', 'Yesica_Anggraeni.jpg', '085844703403', 'Bandung', 'Admin'),
-(21, 'indra@gmail.com', '$2y$10$QYdu1QCMyaSEGMGECtE4luKenZZPVFjuVeNfb6JVEQAO/1UmGG1xm', 'Indra Kurniawan', 'Indra_Kurniawan.jpg', '085400839283', 'Bandung', 'Petugas'),
-(22, 'celine@gmail.com', '$2y$10$1oN6NG./4vfORBfiBBBA4ui2gdEvNYIEcYhfVcBnI/mr4RdVVzLkW', 'Celine Natalie', 'Celine_Natalie.jpg', '089400541132', 'Bandung', 'Petugas');
+(8, 'yesicaagrn654@gmail.com', '$2y$10$RjFEXwZWVXA/IewH/Nnj8.sXxMUwKvpFI5wJyMlQdp.nhs9z4t6oq', 'Yesica Anggraeni', 'Yesica_Anggraeni.jpg', '085844703403', 'Bandung', 'Admin'),
+(21, 'indra@gmail.com', '$2y$10$QYdu1QCMyaSEGMGECtE4luKenZZPVFjuVeNfb6JVEQAO/1UmGG1xm', 'Indra Kurniawan', 'Indra_Kurniawan.jpg', '085400800000', 'Bandung', 'Petugas'),
+(24, 'riana@gmail.com', '$2y$10$CV6FmSiAsLZgTLH0EHeznO.sYM4RxCZqZjYFdssimUasbvsAhTIa6', 'Riana Damayanti', 'Riana_Damayanti.jpg', '089578443455', 'Bandung', 'Petugas');
 
 --
 -- Triggers `petugas`
@@ -265,12 +296,15 @@ INSERT INTO `siswa` (`nisn`, `nis`, `nama`, `email`, `gambar`, `id_kelas`, `alam
 ('0047238783', '1819.10032', 'Tresa Amelia', 'tresa@gmail.com', 'Tresa_Amelia.jpg', 15, 'Bandung', '089589349932', 17, '$2y$10$FhrOmA.KIJ6f7YT5KynhyOM8eypi9kigpUx/0fLffl6U8QHearYGi'),
 ('0048532942', '1819.10022', 'Tisha Destiarani', 'tisha@gmail.com', 'Tisha_Destiarani.jpg', 15, 'Bandung', '089437834388', 17, '$2y$10$7WrVlmbWjQke300ZaZtkeuA/JBLDVYVH3m1vgtfn.VyWMQ6fTyO/y'),
 ('0048572283', '1819.10032', 'Budi Arip', 'budi@gmail.com', 'Budi_Arip.jpg', 9, 'Bandung', '089478539923', 17, '$2y$10$E7CI9ZOk6z0exwNclvKrq.tEZ51ZMMmltwG4rf7.QZnQ/Fk3GjHRi'),
+('0048782819', '2021.10003', 'Argi Ahmad', 'argi@gmail.com', 'Argi_Ahmad.jpg', 8, 'Bandung', '088378937822', 19, '$2y$10$vTGhz5PWXss5qbdi1Df22e4R8aL9tuVQ7JUSDbhE9xK94g3yNkIQy'),
 ('0048957864', '2021.10012', 'Mevassaret', 'meva@gmail.com', 'Mevassaret.jpg', 6, 'Bandung', '089538797843', 19, '$2y$10$yKgL7cBB6wwvQheTpntNFe6VQ8CfTg6VnIRt7sYNFO6Sc4ssMWwM6'),
 ('0054382384', '1819.10014', 'Hady Setiawan', 'hady@gmail.com', 'Hady_Setiawan.jpg', 12, 'Bandung', '088178329943', 17, '$2y$10$alBWD7o2/6ZblIThO7WR6OV6PX5pfNZFMk3.tRTcwvBNh5po/aFpa'),
 ('0054839538', '2021.10027', 'Sahrul Gunawan', 'sahrul@gmail.com', 'Sahrul_Gunawan.jpg', 13, 'Bandung', '089433891211', 19, '$2y$10$OqLD5EO/EblGiqbUB7twyu0aQ3lGD.RrE/bhKN6fsxs5xDV.PuaWi'),
+('0058958903', '1819.10022', 'Yesica', 'yesicaagrn04@gmail.com', 'Yesica.jpg', 12, 'Bandung', '088374883222', 17, '$2y$10$M5h2yT2.wE.kBwzUA1txhuCUtm2/5/2VWb0GaAIAtGRDfZBjrCW1u'),
 ('0069547843', '1920.10017', 'Ramdan', 'ramdan@gmail.com', 'Ramdan.jpg', 16, 'Bandung', '089578932893', 18, '$2y$10$0lJfKnVD38AJQAFMQvA2uuhBjpdl9Xi2TdLNB.uu4C.jv19.gVwsm'),
-('0084829934', '1920.10023', 'Agustinus', 'agustinus@gmail.com', 'Agustinus.jpg', 5, 'Bandung', '089478237743', 18, '$2y$10$zQFJBdqEjM8wtFtYphBbm.xTxGJxa./IRlQy62ImvIfRW4c0baa7S'),
+('0084829934', '1920.10011', 'Agustinus', 'agustinus@gmail.com', 'Agustinus.jpg', 5, 'Cibaduyut', '089478237000', 18, '$2y$10$zQFJBdqEjM8wtFtYphBbm.xTxGJxa./IRlQy62ImvIfRW4c0baa7S'),
 ('0085497843', '1920.10020', 'Riyanti', 'riyanti@gmail.com', 'Riyanti.jpg', 5, 'Bandung', '083783884389', 18, '$2y$10$hPfRVhO9cqTPYjmshUc7Ueo5Q6c9QI/9bY42CsziBuvamz32Ix/R6'),
+('0088523788', '1819.10030', 'Hafidz Fauzan', 'hafidz@gmail.com', 'Hafidz_Fauzan.jpg', 12, 'Bandung', '089478937822', 17, '$2y$10$LVt0TGzMklaNl2WLwnNYjObyJi3qbDjyZdTz17/vnJSilk/hmo7Au'),
 ('0089647548', '2021.10043', 'Kaka Firmansyah', 'kaka@gmail.com', 'Kaka_Firmansyah.jpg', 13, 'Bandung', '087589023430', 19, '$2y$10$JrBuLEDhpBlAEs5yFjGIy.J/M4Iv6nXx1p5oLrMVlEN1WBPssPw8a'),
 ('0094327954', '2021.10032', 'Khofifah', 'khofifah@gmail.com', 'Khofifah.jpg', 6, 'Bandung', '084732984398', 19, '$2y$10$lwp9SBfZhZlyD5JANOKNR.4I0MOfVwa9VwztyJIKFiH0Yj7MLasNO'),
 ('0095437893', '1920.10018', 'Putri Bianca', 'putri@gmail.com', 'Putri_Bianca.jpg', 1, 'Bandung', '089578938922', 18, '$2y$10$MvjFhwL8eKdpZL4j7Ty0e.PQazvHormqnP3aOmk3V0/LvuV6aeC32'),
@@ -295,11 +329,9 @@ CREATE TABLE `spp` (
 --
 
 INSERT INTO `spp` (`id_spp`, `tahun`, `nominal`) VALUES
-(10, 2021, 430000),
 (17, 2018, 400000),
 (18, 2019, 410000),
-(19, 2020, 420000),
-(20, 2022, 450000);
+(19, 2020, 420000);
 
 -- --------------------------------------------------------
 
@@ -325,7 +357,13 @@ INSERT INTO `user_token` (`id`, `email`, `token`, `date_created`) VALUES
 (6, 'yesicaagrn654@gmail.com', 'hTITJt5dRcONm3dnntkLqFo08kIYc/e6ZSJAcGODMKI=', 1617780186),
 (7, 'yesicaagrn654@gmail.com', 'CQEqi6f8krmF/OiVf9uJi1iJVrYBGv0TB+1XNXhHMkA=', 1617780902),
 (8, 'yesicaagrn654@gmail.com', 'nNn6yHsmlmgHmNk58qk5NRuidExL3PRrwJDLtUqx34g=', 1617957759),
-(9, 'yesicaagrn654@gmail.com', 'lDaW5Eq5ekIcS2OC8SJHW9lgdAm7hXmJPcMJ7qw0x0I=', 1617957937);
+(9, 'yesicaagrn654@gmail.com', 'lDaW5Eq5ekIcS2OC8SJHW9lgdAm7hXmJPcMJ7qw0x0I=', 1617957937),
+(10, 'yesicaagrn04@gmail.com', 'A32IhFPJ2dvZGYpwvojkJY8j/XK+FZsJP7IW+CUL1k4=', 1617974583),
+(11, 'yesicaagrn04@gmail.com', 'Og8JMfoQfNVcav0JhxunaF5PVxdM7hsBWmoMipbcTL8=', 1617974657),
+(12, 'yesicaagrn04@gmail.com', 'JUddmAdpuebC2ggA++F3kIWQkSRZtXxg5dVQSlN/TsY=', 1617974777),
+(13, 'yesicaagrn04@gmail.com', 'huIXeUGJmZuyGn3E/ovQzT9E8tPNOpFpXEa4tjjbo98=', 1618006315),
+(14, 'yesicaagrn654@gmail.com', '1STvFA5r8rKysZHF/Z0hJFAE7YJX7YL6BHc5uqCSWy8=', 1618016385),
+(15, 'yesicaagrn654@gmail.com', 'VK4yO/jPyVhGU/UIjDthMbXF0BQKrnnxGYTVb2A7PgI=', 1618019527);
 
 --
 -- Indexes for dumped tables
@@ -385,37 +423,37 @@ ALTER TABLE `user_token`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_kelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `log_petugas`
 --
 ALTER TABLE `log_petugas`
-  MODIFY `id_log_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_log_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `spp`
 --
 ALTER TABLE `spp`
-  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id_spp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `user_token`
 --
 ALTER TABLE `user_token`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables

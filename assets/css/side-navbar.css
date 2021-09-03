@@ -50,7 +50,7 @@ body{
 }
 
 .pull-right-admin{
-	margin-left: 56%;
+	margin-left: 51%;
 	margin-top: 15px;
 	background-color: #007580;
 }
@@ -253,4 +253,8 @@ body{
 
 .date-siswa {
 	margin-top: 133% !important;
+}
+
+.btn-default {
+	margin-right: 125px;
 }

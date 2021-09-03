@@ -355,7 +355,7 @@ class admin_model extends CI_Model
             FROM `siswa`
             JOIN `kelas` ON `kelas`.`id_kelas` = `siswa`.`id_kelas`
             GROUP BY `kelas`.`kompetensi_keahlian`";
-    
+
     return $this->db->query($sql)->result_array();
   }
 
